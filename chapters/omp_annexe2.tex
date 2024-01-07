@@ -1,0 +1,146 @@
+\chapter{Quelques notions de statistique\label{annexe:statistiques}}
+\section{Généralités}
+Dans de nombreuses expériences, il est impossible de connaître avec une précision infinie le résultat d'une mesure. On utilise alors la notion de probabilité. 
+
+Considérons une expérience dont le résultat n'est pas connu par manque d'information et que l'on peut répéter \emph{à l'identique} 
+$N$ fois. Supposons que les résultats possibles fassent parti d'un ensemble d'événements 
+$\mathbb{E}=\{e_{1},e_{2},\ldots,e_{p}\}$.  Si l'événement $e_{i}$ se produit $N_{i}$ fois après avoir réalisé $N$ expériences 
+identiques, on dit que l'événement $e_{i}$ se produit avec une fréquence $N_{i}/N$. Par définition, la probabilité que l'événement $e_{i}$ se produise est la limite de la fréquence quand le nombre d'expériences tend vers l'infini : 
+\eqnboxcoeur{
+P_{i}=\lim_{N\to \infty}\frac{N_{i}}{N}
+\quad\text{avec}\quad
+\left\{\begin{array}{cc}
+  0\leq P_{i}\leq 1   		&	\\
+  \displaystyle{\sum_{i}^{p} P_{i}}=1	&\text{(normalisation)}   \\
+\end{array}\right.}
+
+\subsection*{Lois de composition}
+La probabilité que l'un des deux événements $e_{1}$ ou $e_{2}$ se produisent lors d'une expérience vaut 
+	\[P(e_{1} \cup e_{2})=P_{1}+P_{2}-P(e_{1}\cap e_{2})\]
+De telle sorte que pour deux événements qui s'excluent mutuellement (événements \emph{disjoints} ou \emph{incompatibles}) on a 
+\eqnboxcoeur{P(e_{1} \cup e_{2})=P_{1}+P_{2}
+\quad\text{si}\quad
+e_{1}\cap e_{2}=\{\emptyset\}}
+La probabilité que deux événements $e_{1}$ et $e_{2}$ se produisent vaut 
+	\[P(e_{1} \cap e_{2})=P(e_{1}|e_{2})P(e_{2})\]
+où $P(e_{1}|e_{2})$ désigne la probabilité conditionnelle de l'événement $e_{1}$ sachant $e_{2}$. Ainsi, pour deux événements \emph{indépendants} on a $P(e_{1}|e_{2})=P(e_{1})$ de telle sorte que 
+\eqnboxcoeur{P(e_{1} \cap e_{2})=P_{1}\times P_{2}}
+\exemples{\textbf{Quelle est la probabilité $P$ d'obtenir un total de 5 en lan\c cant deux dés indépendants ?}\\
+On appelle $e_{ij}$ l'événement associé au couple ($i,j$) produit par le lancé de deux dés et $e_{i}$ l'événement 
+associé au fait de sortir le nombre $i$ après le lancé d'un dé.  On a $P_{ij}=P_{i}P_{j}=\frac{1}{6}\times\frac{1}{6}=\frac{1}{36}$. Les 
+événements pour lesquels le total vaut 5 sont $e_{14}$, $e_{41}$, $e_{32}$ et $e_{23}$. Ces quatre événements étant disjoints, on a 
+	\[P=P_{14}+P_{41}+P_{23}+P_{32}=4\times\frac{1}{36}=1/9\]\\
+\textbf{Quelle est la probabilité $P$ d'obtenir trois as en tirant trois cartes d'un jeu de trente deux cartes ?}\\
+Appelons $P_{1}$ la probabilité de tirer un as dans un jeu de 32 cartes, $P_{2}$ la probabilité de tirer un as dans un jeu de 31 cartes sachant qu'un premier as a été tiré et enfin $P_{3}$ la probabilité de tirer un as dans un jeu de 30 cartes sachant que deux as ont été tirés. D'après la loi ci-dessus, on a 
+\[P=P_{1}P_{2}P_{3}\]
+Or, $P_{1}=4/32$, $P_{2}=3/31$ et $P_{3}=2/30$, d'où $P=\frac{1}{1240}$.
+}
+
+Enfin, si on connait la probabilité d'un événement, on connaît alors la probabilité associée à l'événement complémentaire :
+\eqnboxcoeur{P(\complement e_{1})=1-P_{1}}
+
+\section{Variable aléatoire}
+On peut associer à un ensemble d'événements distincts des valeurs distinctes d'une variable aléatoire réelle $x$ : $\mathbb{E}\mapsto \mathbb{R} : e_{i}\mapsto x_{i}$. Par définition on notera 
+\eqnbox{P_{i}\stackrel{\text{def}}= P(x=x_{i})}
+l'ensemble $(x,P(x))$ constitue la loi de probabilité et se représente à l'aide d'un histogramme.
+
+En physique, on a rarement accès à la loi de probabilité mais a des grandeurs qui sont liés à deux propriétés : la \emph{moyenne} et l'\emph{écart-type}.
+\subsection*{Moyenne}
+Par définition, la moyenne (ou espérance)  de la variable aléatoire $x$ est notée $\overline{x}$ et vaut
+	\[\overline{x}\stackrel{\text{def}}=\sum_{i}P_{i}x_{i}\]
+De la même manière, la moyenne d'une fonction de la variable aléatoire $x$ vaut
+	\[\overline{f(x)}\stackrel{\text{def}}=\sum_{i}P_{i}f(x_{i})\] 
+\subsection*{Ecart-type}
+On quantifie la dispersion des tirages de $x$ autour de la moyenne par l'\emph{écart-type} $\sigma_{x}$. L'\emph{écart-type} est la racine carré de la variance $\mathcal{V}(x)=\overline{(x-\overline{x})^{2}}=\overline{x^{2}}-\overline{x}^{2}$ :
+
+	\[\sigma_{x}\stackrel{\text{def}}= \sqrt{\mathcal{V}(x)}=\sqrt{\overline{(x-\overline{x})}^{2}}=\sqrt{\overline{x^{2}}-\overline{x}^{2}}\]
+
+
+\section{Somme de variables aléatoires}
+Considérons la somme 
+\[S=\sum_{i=1}^{n}x_{i}\]
+où les $x_{i}$ sont des variables aléatoires. $S$ est donc aussi une variable aléatoire pour laquelle on peut définir une loi de probabilité $P(S)$, à priori nécessaire au calcul des grandeurs moyennes. Cependant, si les variables sont indépendantes, il suffit de connaître les lois de probabilité des $x_{i}$. Par exemple, calculons la valeur moyenne $\overline{S}$ et l'écart-type $\sigma_{S}$ pour s'en convaincre.
+\eqnboxcoeur{\overline{S}=\overline{\sum_{i}x_{i}}=\sum_{i=1}^{N}\overline{x_{i}}}
+car l'opération de moyenne est linéaire. Notons que cette relation est valide même si les variables sont dépendantes. 
+
+Le calcul de la variance donne 
+	\[\mathcal{V}(S)=\overline{S^{2}}-\overline{S}^{2}=
+	\overline{\sum_{i,j}x_{i}x_{j}}-\left(\sum_{i=1}^{n}\overline{x_{i}}\right)^{2}\]
+Or
+	\[\left\{\begin{array}{ccc}
+	\displaystyle{\overline{\sum_{i,j}x_{i}x_{j}}}
+	&=
+	&\displaystyle{\sum_{i=1}^{n}\overline{x_{i}^{2}}+\sum_{i\neq j}\overline{x_{i}x_{j}}}\\[3mm]
+	
+	\displaystyle{\left(\sum_{i=1}^{n}\overline{x_{i}}\right)^{2}}
+	&=
+	&\displaystyle{\sum_{i=1}^{n}\overline{x_{i}}^{2}+\sum_{i\neq j} \overline{x_{i}}.\overline{x_{j}}}
+	\end{array}\right.\]
+Si l'on fait l'hypothèse que les variables sont indépendantes, on a $\overline{x_{i}x_{j}}=\overline{x_{i}}.\overline{x_{j}}$, ce qui donne finalement 
+	\[\mathcal{V}(S)=\sum_{i}\sigma_{x_{i}}^{2}\]
+Les variances s'ajoutent. On retiendra le cas particulier des variables indépendantes de même moyenne et de même écart-type :
+\cadre{\textbf{A retenir}\\
+Si $S$ est la somme de $n$ variables aléatoires \textbf{indépendantes} de moyenne $\overline{x}$ et d'écart-type $\sigma$ on a 	\[\begin{array}{ccc}
+	\overline{S}	&=&	n\overline{x}\\
+	\sigma_{S}		&=& \sqrt{n}\sigma
+	\end{array}\]
+En conséquence la moyenne arithmétique définie par 
+	\[	m=\frac{\displaystyle{\sum_{i=1}^{i=n}x_i}}{n}\]
+Présente un écart-type 
+	\[\sigma_m=\frac{\sigma_S}{n}=\frac{\sigma}{\sqrt{n}}\]
+}
+En d'autres termes, on réduit l'incertitude d'un facteur $\sqrt{n}$ en procédant à $n$ mesures puis en effectuant la moyenne arithmétique. Ceci est une illustration de la loi des grands nombres (voir figure ci-dessous).
+
+%------- TIKZ : Loi des grands nombres ----------------
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}[scale=0.8]
+	\begin{axis}[
+		title={Tirages de $S=\sum_{i}x_{i}$ avec $n=10$},
+		xlabel={tirage n$^\circ$},
+		axis x line=bottom,
+		axis y line=left,
+		xmin=0,
+		xmax=100,
+		ymin=0,
+		ymax=10,
+		extra y ticks={5},
+		extra y tick labels={$\overline{S}$},]
+	 	%--- fonctions à tracer ------
+	 	\addplot+[mark=none] table[x=tirage,y=S]{simu/loiGrandsNombres10.txt};
+	\end{axis}
+	\end{tikzpicture}
+	\begin{tikzpicture}[scale=0.8]
+	\begin{axis}[
+		title={Tirages de $S=\sum_{i}x_{i}$ avec $n=100$},
+		xlabel={tirage n$^\circ$},
+		axis x line=bottom,
+		axis y line=left,
+		xmin=0,
+		xmax=100,
+		ymin=0,
+		ymax=100,
+		extra y ticks={50},
+		extra y tick labels={$\overline{S}$},]
+	 	%--- fonctions à tracer ------
+	 	\addplot+[mark=none] table[x=tirage,y=S]{simu/loiGrandsNombres100.txt};
+	\end{axis}
+	\end{tikzpicture}
+	\begin{tikzpicture}[scale=0.8]
+	\begin{axis}[
+		title={Tirages de $S=\sum_{i}x_{i}$ avec $n=1000$},
+		xlabel={tirage n$^\circ$},
+		axis x line=bottom,
+		axis y line=left,
+		xmin=0,
+		xmax=100,
+		ymin=0,
+		ymax=1000,
+		extra y ticks={500},
+		extra y tick labels={$\overline{S}$},]
+	 	%--- fonctions à tracer ------
+	 	\addplot+[mark=none] table[x=tirage,y=S]{simu/loiGrandsNombres1000.txt};
+	\end{axis}
+	\end{tikzpicture}
+	\caption{Loi des grands nombres. On tire $n$ fois une variable aléatoire à deux états équiprobables ($x=0$ ou 1) puis on somme les valeurs. Observez la décroissance de la dispersion relative lorsque $n$ augmente.}
+\end{figure}

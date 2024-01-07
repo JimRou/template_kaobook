@@ -1,0 +1,330 @@
+\setchapterstyle{kao}
+\setchapterpreamble[u]{\margintoc} 
+\chapter{LES CONIQUES}
+\labch{les_coniques}
+\labpage{les_coniques}
+
+\begin{center}
+\textbf{Version en ligne}
+
+	\url{https://femto-physique.fr/omp/coniques.php}
+\end{center}
+
+
+\section{Introduction}
+Par définition, les coniques sont les sections d'un cône de révolution par un plan ne passant pas par son sommet. Il existe trois formes différentes : l'ellipse, la parabole et l'hyperbole. Une conique possède au moins un foyer F et un axe de symétrie passant par F. L'équation polaire d'une conique avec origine au foyer s'écrit : 
+\[
+r(\theta)=\frac{p}{e\cos(\theta-\theta_{0}) \pm 1}
+\quad\text{avec}\quad
+\left\{\begin{array}{ccc}
+p	&>& 0   \\
+e	&\geq& 0  
+\end{array}\right.
+\]
+$p$ est appelé \textbf{paramètre} et $e$ \textbf{excentricité} de la conique. Étant donné que la transformation $\theta-\theta_{0}\mapsto \theta_{0}-\theta$ laisse invariante la conique, celle-ci présente donc toujours un axe de symétrie, ici l'axe $\theta=\theta_{0}$. Par commodité, nous prendrons l'axe F$x$ comme axe de symétrie de sorte que $\theta_{0}=0$.
+
+ 
+\section{L'ellipse}
+\subsection{Propriétés de l'ellipse}
+Par définition, l'ellipse est une conique d'excentricité $e<1$. Son équation polaire s'écrit donc :
+\begin{equation}
+r(\theta)=\frac{p}{e\cos(\theta) +1}
+\quad\text{avec}\quad
+p>0 \quad\text{et}\quad 0\leq	e<1
+\label{eq:C7equation_polaire_ellipse}
+\end{equation}
+On remarque immédiatement que lorsque $e=0$, l'ellipse se confond avec le cercle de centre F et de rayon $p$. Dans le cas ou $e\neq 0$, l'ellipse présente les propriétés suivantes.
+
+\begin{marginfigure}
+	\centering
+	\begin{tikzpicture}[scale=1,font=\footnotesize]
+		\def \parametre {1};%parametre de l'ellipse
+		\def \excentric {0.7};%excentricité
+		\def \alphaP {0};%angle correspondant au périgée
+		\def \alphaM {60};%angle correspondant au point M
+		\def \gdaxe {\parametre/(1-\excentric*\excentric)}  ;
+		\def \focale {\excentric*\gdaxe};
+		\def \ptaxe {sqrt(\gdaxe*\gdaxe-\focale*\focale)}; 
+		\coordinate (O) at ({-\focale*cos(\alphaP)},{-\focale*sin(\alphaP)});
+		\coordinate (M) at ({\parametre*cos(\alphaM)/(1+\excentric*cos(\alphaM-\alphaP))},{\parametre*sin(\alphaM)/(1+\excentric*cos(\alphaM-\alphaP))});
+		\coordinate (P) at ({\parametre*cos(\alphaP)/(1+\excentric)},{\parametre*sin(\alphaP)/(1+\excentric)});%Péricentre
+		\coordinate (F) at (0,0);
+		\coordinate (F') at ({-2*\focale},0);
+		\draw[dashed,thin, gray] (P)--++(0,{\ptaxe})--++({-2*\gdaxe},0)--++(0,{-2*\ptaxe})--++({2*\gdaxe},0)-- cycle;
+		\draw[thick,monBleu,variable=\t , domain=0:360,samples=200] plot ({\parametre*cos(\t)/(1+\excentric*cos(\t-\alphaP))},{\parametre*sin(\t)/(1+\excentric*cos(\t-\alphaP))});
+		\draw[->,ultra thin,gray] (O)--++({-\gdaxe},0)--++({2*\gdaxe+.5},0)node[below left]{$x$};
+		\draw[->,ultra thin,gray] (O)--++(0,{-\ptaxe})--++(0,{2*\ptaxe+.5})node[below left]{$y$};
+		\draw (F) node{$\bullet$}node[below=3pt]{F}--(M) node[right=2pt]{M$(r,\theta)$}node[pos=0.5,fill=white,]{$r$};
+		\draw (F') node{$\bullet$}node[below=3pt]{F'};
+		\draw[vecteur] (F)++(0.5,0) arc(0:\alphaM:0.5);
+		\draw ({\alphaM/2}:0.25) node{$\theta$};
+	  	\draw[fill=white] (M) circle(0.1);
+		\draw (O)--++(0,{\ptaxe}) node[pos=0.5,fill=white]{$b$};
+		\draw (O)--(F) node[pos=0.5,fill=white]{$c$};
+		\draw (F)--++({-\focale},{\ptaxe}) node[pos=0.5,fill=white]{$a$};
+		\draw[|<->|] (O)++({-\gdaxe-.5},{\ptaxe})--++(0,{-2*\ptaxe}) node[pos=0.5,right]{$2b$};
+		\draw[|<->|] (O)++({-\gdaxe},{-\ptaxe-.5})--++({2*\gdaxe},0) node[pos=0.5,above]{$2a$};
+		\draw[fill=white] (O) node{$\bullet$} node[below]{C};
+	\end{tikzpicture}
+	\caption{L'ellipse}
+	\labfig{C9AnnexeEllipse}
+\end{marginfigure}
+
+\begin{enumerate}
+	\item La courbe est bornée puisque $r$ est fini pour toute valeur de $\theta$. 
+	\item La fonction $r(\theta)$ étant $2\pi$-périodique, il s'agit donc d'une courbe qui se referme après une révolution.
+	\item Le point le plus rapproché de l'origine F est appelé \textbf{péricentre} et correspond à $\theta=0$. Il se situe à $r_{\textrm{p}}=p/(1+e)$ du foyer.
+	\item Le point le plus éloigné de l'origine est appelé \textbf{apocentre} et correspond à $\theta=\pi$. Il se situe à la distance $r_{\textrm{a}}=p/(1-e)$ du foyer.
+	\item Par définition, la distance $2a$ qui sépare le péricentre de l'apocentre est le \textbf{grand-axe} de l'ellipse. on a 
+	\[2a=r_{\textrm{a}}+r_{\textrm{p}}=\frac{2p}{1-e^2}\]
+	\item Posons le point C sur l'axe de symétrie à gauche de F de sorte que $\textrm{CF}=c=ae$ et définissons F' l'image de F par la symétrie centrale de centre C. Calculons la distance FM~$+$~F'M. 
+	
+	D'après la relation d'Al-Kashi on a 
+	\[
+	\textrm{FM}=r
+	\qquad\text{et}\qquad
+	\textrm{F'M}=\sqrt{r^2+4c^2+4r\,c\cos\theta}
+	\]
+	Or, on a  $c=ea$ et $r=a(1-e^2)/(e\cos\theta+1)$ d'où
+	\[
+	\begin{array}{rcl}
+	4c^2+4r\,c\cos\theta	&=&	4e^2a^2+4r\,e\,a\cos\theta\\
+							&=& 4a^2+4a^2(e^2-1)+\dfrac{4a^2(1-e^2)e\cos\theta}{e\cos\theta+1}\\
+							&=& 4a^2-\dfrac{4a^2(1-e^2)}{e\cos\theta+1}\\	
+	4c^2+4r\,c\cos\theta	&=&	4a^2-4a\,r\\								
+	\end{array}
+	\]
+	Finalement $\textrm{F'M}=\sqrt{r^2+4a^2-4ar}=2a-r$ de sorte que l'on trouve
+	\begin{equation}
+	\boxed{\textrm{FM}+\textrm{F'M}=2a}
+	\label{eq:C7relation_bifocale}
+	\end{equation}
+	Il s'agit de la définition bifocale de l'ellipse. 
+	\item Cette dernière propriété implique une symétrie par rapport aux axes (C$y$) et (C$x$)  et donc une symétrie centrale de centre C. Il existe donc deux positions de M sur l'axe C$y$, séparées de la distance $2b$ appelé \textbf{petit-axe}.  Dans ce cas, compte tenu de la relation \eqref{eq:C7relation_bifocale}, on a 
+	\[
+	\textrm{FM}=\textrm{F'M}=a
+	\qquad\text{et}\qquad
+	\textrm{FM}=\sqrt{c^2+b^2}
+	\]
+	Ainsi, petit et grand-axe sont liés à la distance focale $c$ par la relation
+	\begin{equation}
+	\boxed{a^2=b^{2}+c^{2}}
+	\label{eq:C7relation_entre_a_b_et_c}
+	\end{equation}
+\end{enumerate}
+	
+
+\subsection{Équation cartésienne}
+L'équation cartésienne est relativement simple si l'origine du repère est placée au centre de l'ellipse. En effet, écrivons l'équation \eqref{eq:C7equation_polaire_ellipse} sous la forme $r=p-re\cos\theta$ et substituons les coordonnées cartésiennes $x=r\cos\theta+c$  et $y=r\sin\theta$ :
+\[	
+r=p-e(x-c)
+\quad\Longrightarrow\quad
+r^2=(x-c)^2+y^2=p^2+e^2(x-c)^2-2ep(x-c)
+\]
+Développons en plaçant les termes quadratiques à gauche :
+\[
+x^2(1-e^2)+y^2=p^2+e^2c^2+2epc-c^2+x(2c-2ce^2-2pe)
+\]
+Sachant que $p=a(1-e^2)$ et $c=ea$, la relation devient
+\[
+x^2(1-e^2)+y^2=a^2(1-e^2)^2+e^4a^2+2a^2e^2(1-e^2)-e^2a^2+x\left(2ea-2ae^3-2ae(1-e^2)\right) 
+\]
+soit, après simplification :
+\begin{equation}
+x^2(1-e^2)+y^2=a^2(1-e^2)
+\label{eq:C7equation_cartesienne_conique}
+\end{equation}
+Le terme de droite représente $a^2-c^2=b^2$ de sorte que l'équation cartésienne d'une ellipse de demi-grand axe $a$ et de demi-petit axe $b$ s'écrit 
+% --- equation --- (fold)
+\begin{equation}
+\boxed{\frac{x^{2}}{a^{2}}+\frac{y^{2}}{b^{2}}=1}
+\label{eq:C7equation_cartesienne_ellipse}
+\end{equation}
+%--- equation --- (end)
+
+
+%De plus, la courbe paramétrique d'équation
+%\[\mathcal{C}_{1}\left\{
+% \begin{array}{ccc}
+% x(t) & = & a\cos t\\
+% y(t) & = & b\sin t
+%\end{array}\right.
+%\quad 
+%t\in[0,2\pi[\]
+%décrit également une ellipse.
+
+
+\section{La parabole}
+\subsection{Propriétés}
+
+%------ Figure TIKZ ------
+\begin{marginfigure}
+	\centering
+	\begin{tikzpicture}[scale=0.8,font=\footnotesize]
+		\def \parametre {2.5};%parametre de la parabole
+		\def \excentric {1};%excentricité
+		\def \alphaP {0};%angle correspondant au périgée
+		\def \alphaM {100};%angle correspondant au point M
+		\def \focale {\parametre*0.5}; 
+		\coordinate (M) at ({\parametre*cos(\alphaM)/(1+\excentric*cos(\alphaM-\alphaP))},{\parametre*sin(\alphaM)/(1+\excentric*cos(\alphaM-\alphaP))});
+		\coordinate (P) at ({\focale*cos(\alphaP)},{\focale*sin(\alphaP)});%Péricentre
+		\coordinate (F) at (0,0);
+		\draw[->,ultra thin,gray] (P) --++(-3,0)node[below left]{$x$};
+		\draw[->,ultra thin,gray] (P) --++(0,4)node[below left]{$y$};
+		\draw[thick,monBleu,variable=\t , domain=-110:110,samples=200] plot ({\parametre*cos(\t)/(1+\excentric*cos(\t-\alphaP))},{\parametre*sin(\t)/(1+\excentric*cos(\t-\alphaP))});
+		\draw (F) node{$\bullet$} node[below]{\small Foyer}--(M) node[right=2pt]{M$(r,\theta)$}node[pos=0.5,left]{$r$};
+		\draw[fill=white] (M) circle(0.1);
+		\draw[vecteur] (F)++(0.5,0) arc(0:\alphaM:0.5);
+		\draw ({\alphaM/2}:0.8) node{$\theta$};
+	\end{tikzpicture}
+	\caption{La parabole}
+	\labfig{C9AnnexeParabole}
+\end{marginfigure}
+%--- FIN FIGURE --------
+
+Par définition, la parabole est une conique d'excentricité $e=1$. Son équation polaire avec origine au foyer est donc 
+\begin{equation}
+r(\theta)=\frac{p}{1+\cos\theta}
+\label{eq:C7equation_polaire_parabole}
+\end{equation}
+On est toujours en présence de la symétrie d'axe O$x$. Le péricentre est obtenu lorsque $\theta=0$ et se situe à la distance $p/2$ du foyer, appelée distance focale. Par ailleurs, lorsque $\theta\to \pm\pi$, la distance FM tend vers l'infini.
+
+
+\subsection{Équation cartésienne}
+Plaçons l'origine d'un repère cartésien au péricentre\sidenote{appelé aussi \emph{sommet de la parabole}} en orientant l'axe O$x$ vers la gauche. Écrivons l'équation polaire~\eqref{eq:C7equation_polaire_parabole} sous la forme $r=p-r\cos\theta$ et substituons les coordonnées cartésiennes $x=p/2-r\cos\theta$  et $y=r\sin\theta$ :
+\[	
+\sqrt{y^2+(x-\frac{p}{2})^2}=p+(x-\frac{p}{2})
+\]
+Élevons au carré : 
+\[	
+y^2+(x-\frac{p}{2})^2=p^2+(x-\frac{p}{2})^2+2p(x-\frac{p}{2})
+\]
+Après simplification, on trouve que l'équation cartésienne d'une parabole de paramètre $p$ s'écrit
+% --- equation --- (fold)
+\begin{equation}
+\boxed{
+y^{2}=2p\,x
+}
+\label{eq:C7equation_cartesienne_parabole}
+\end{equation}
+%--- equation --- (end)
+
+\begin{kaoremark}
+Si l'on transforme $x\to y$ et $y\to -x$, cela revient à tourner la parabole de $-\pi/2$. On obtient dans ce cas l'équation usuelle d'une parabole : $y=\frac{1}{2p}x^2$.
+\end{kaoremark} 
+
+\section{L'hyperbole}
+\subsection{Propriétés}
+Par définition, l'hyperbole est une conique d'excentricité $e>1$ et d'équation polaire 
+\[
+r(\theta)=\frac{p}{e\cos\theta \pm1}
+\quad\text{avec}\quad
+\left\{\begin{array}{ccc}
+p	&>& 0   \\
+e	&>& 1  
+\end{array}\right.
+\]
+ce qui décrit deux branches d'hyperbole dont les asymptotes se coupent en un point O. 
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[yscale=0.8,decoration={markings,mark=at position 1cm with {\arrow[black]{stealth};}},font=\footnotesize]
+\def \parametre {1.5};%parametre de l'hyperbole
+\def \excentric {1.6};%excentricité
+\def \alphaP {0};%angle correspondant au périgée
+\def \alphaM {34};%angle correspondant au point M
+\def \gdaxe {\parametre/(\excentric*\excentric-1)};% grand axe a
+\def \focale {\excentric*\gdaxe};% focale
+\def \ptaxe {sqrt(\focale*\focale-\gdaxe*\gdaxe)};% petit axe b
+\draw[thin, gray,-] ({\gdaxe},{-\ptaxe})--++(0,{2*\ptaxe})node[pos=0.8,fill=white]{\tiny $2b$};
+\draw[thin, gray,-] ({\gdaxe},{-\ptaxe})--++({-2*\gdaxe},0)node[pos=0.7,fill=white]{\tiny $2a$}; 
+\draw[thin, gray,-] ({-\gdaxe},{\ptaxe})--++(0,{-2*\ptaxe});
+\draw[thin, gray,-] ({-\gdaxe},{\ptaxe})--++({2*\gdaxe},0); 
+\draw[->,ultra thin,gray] (-2,0) --++(6,0)node[below left]{$x$};%axeOx
+\draw[->,ultra thin,gray] (0,-2) --++(0,6)node[below left]{$y$};%axeOy
+\draw[thin,dashed,variable=\t , domain=-3:3,samples=20] plot ({\t},{(\ptaxe/(\gdaxe))*\t});%asymptotes
+\draw[thin,dashed,variable=\t , domain=-3:3,samples=20] plot ({-\t},{(\ptaxe/(\gdaxe))*\t});%asymptotes
+\begin {scope}[shift={({-\focale},0)} ]
+	\coordinate (M) at ({\parametre*cos(\alphaM)/(-1+\excentric*cos(\alphaM-\alphaP))},{\parametre*sin(\alphaM)/(-1+\excentric*cos(\alphaM-\alphaP))});
+	\coordinate (N) at ({\parametre*cos(\alphaM)/(1+\excentric*cos(\alphaM-\alphaP))},{\parametre*sin(\alphaM)/(1+\excentric*cos(\alphaM-\alphaP))});
+	\coordinate (F) at (0,0);
+	\draw[postaction={decorate},thick,monBleu,variable=\t , domain=-37:37,samples=100] plot ({\parametre*cos(\t)/(\excentric*cos(\t-\alphaP)-1)},{\parametre*sin(\t)/(\excentric*cos(\t-\alphaP)-1)}) node[right]{$\mathcal{B}_{-}$};
+	 \draw[postaction={decorate},thick,monBleu,variable=\t , domain=-111:111,samples=100] plot ({\parametre*cos(\t)/(1+\excentric*cos(\t-\alphaP))},{\parametre*sin(\t)/(1+\excentric*cos(\t-\alphaP))}) node[left]{$\mathcal{B}_{+}$};
+	\draw (0,0) node{$\bullet$} node[below]{Foyer}--(M) node[right=2pt,fill=white]{\small M$(r_{-},\theta)$};
+	\draw (N) node[left=2pt,fill=white]{M$(r_{+},\theta)$};
+	\draw[fill=white] (M) circle(0.1);
+	\draw[fill=white] (N) circle(0.1);
+	\draw[vecteur] (F)++(3,0) arc(0:\alphaM:3);
+	\draw ({\alphaM/2}:3.2) node[right]{$\theta$};
+\end{scope}
+\end{tikzpicture}
+\caption{Hyperbole d'excentricité $e=1,6$.}
+\labfig{C7hyperbole}
+\end{figure}
+
+L'équation \(r_{-}(\theta)=p/(e\cos\theta -1)\) décrit une branche $\mathcal{B}_{-}$ dont les asymptotes font un angle $\pm \theta_{1}$ avec l'axe des abscisses. En effet, $r$ diverge quand $\cos\theta_{1}=1/e$ ce qui donne la pente des asymptotes :
+\[
+\tan\theta_{1}=\pm\sqrt{e^{2}-1}
+\]
+De la même fa\c con, l'équation \(r_{+}(\theta)=p/(e\cos\theta +1)\) décrit une deuxième branche $\mathcal{B}_{+}$ d'hyperbole dont les asymptotes font un angle $\pm\theta_{2}$ donné par $\cos\theta_{2}=-1/e$. Ainsi,
+\[
+\theta_{2}=\pi-\theta_{1}
+\]
+et les asymptotes présentent une symétrie d'axe O$y$. Finalement les asymptotes admettent une symétrie centrale de centre O, propriété partagée par les branches d'hyperbole.
+
+Soit le rectangle tangent à l'hyperbole en $\theta=0$  et dont les sommets sont sur les asymptotes. Par définition, les dimensions de ce rectangle sont appelées \textbf{grand-axe} et \textbf{petit-axe} de l'hyperbole et notées respectivement $2a$ et $2b$. La distance focale $c$ est ici la distance qui sépare O du foyer (comme pour l'ellipse). Une simple lecture des distances donne :
+\[
+\left\{\begin{array}{rcl}
+\dfrac{p}{e-1}-\dfrac{p}{e+1} 	&=& 2a  \\[4mm]
+\dfrac{p}{e-1}  			&=& c+a   \\   
+\end{array}\right.
+\quad\Longrightarrow\quad
+\left\{\begin{array}{rcl}
+p 	&=& a(e^{2}-1)  \\[4mm]
+e	&=& \dfrac{c}{a}   \\   
+\end{array}\right.
+\]
+Par ailleurs, la pente des asymptotes vaut aussi $\pm b/a$ de sorte que $b/a=\sqrt{e^{2}-1}$ c'est-à-dire 
+% --- equation --- (fold)
+\begin{equation}
+\boxed{
+c^{2}=a^{2}+b^{2}
+}
+\label{eq:C7relation_entre_a_b_et_c_pour_hyperbole}
+\end{equation}
+%--- equation --- (end)
+	
+
+
+\subsection{Équation cartésienne}
+Reprenons la démarche employée dans le cas de l'ellipse sans oublier de procéder aux modifications suivantes :
+\begin{enumerate}
+	\item l'origine étant à droite du foyer, il faut poser $x=r\cos\theta-c$ ;
+	\item le paramètre $p$ est relié à l'excentricité et au demi grand-axe par $p=a(e^2-1)$.
+\end{enumerate}
+On retrouve alors l'équation \eqref{eq:C7equation_cartesienne_conique} valable donc aussi bien pour une ellipse que pour une hyperbole :
+\[	
+x^2(1-e^2)+y^2=a^2(1-e^2)
+\]
+Ici, le terme $a^2(1-e^2)$ vaut $a^2-c^2=-b^2$ de sorte que l'équation cartésienne d'une hyperbole demi-grand axe $a$ et de demi-petit axe $b$ s'écrit 
+% --- equation --- (fold)
+\begin{equation}
+\boxed{
+\frac{x^{2}}{a^{2}}-\frac{y^{2}}{b^{2}}=1
+}
+\label{eq:C7equation_cartesienne_hyperbole}
+\end{equation}
+%--- equation --- (end)
+%De plus, la courbe paramétrique d'équation
+%$$ \mathcal{C}_{2}
+%\left\{ 
+%\begin{array}{ccc}
+%x(t)	&=&	a\cosh t\\
+%y(t)	&=&	b\sinh t
+%\end{array}
+%\right.
+%\qquad t \in \mathbb{R} $$
+%décrit également une hyperbole.
+
+
+

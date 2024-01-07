@@ -1,0 +1,1043 @@
+\setchapterstyle{kao}
+\setchapterpreamble[u]{\margintoc} 
+
+\chapter{CALCUL VECTORIEL EN PHYSIQUE}
+\labch{les_vecteurs}
+\labpage{les_vecteurs}
+
+En physique de nombreuses grandeurs peuvent être décrites par un \emph{scalaire}, c'est-à-dire un nombre réel. On peut penser à la température indiquée par un thermomètre, la pression d'un gaz, la masse de Jupiter ou la charge de l'électron, etc. Cependant, d'autres grandeurs --on peut penser à la vitesse du vent, au champ de gravitation terrestre ou au courant électrique-- présentent non seulement une valeur mais aussi une direction et un sens. On utilise alors le concept de \emph{vecteur} pour les modéliser.
+\begin{center}
+\textbf{Version en ligne}
+
+	\url{https://femto-physique.fr/omp/calcul_vectoriel.php}
+\end{center}
+
+
+
+
+
+\section{Grandeurs vectorielles} % (fold)
+
+\subsection{Définition} % (fold)
+\begin{marginfigure}[*1]
+\centering
+	\begin{tikzpicture}[font=\footnotesize]
+			\draw[gray] (0,0)--(20:5);
+			\draw[force] (20:1)--(20:3)node[midway,below]{$\overrightarrow{A}$};
+		    \draw (20:3.5) node[pin={[pin edge={black}]135:droite support}] {};		
+	\end{tikzpicture}
+\caption{Représentation d'une grandeur vectorielle.}
+\labfig{representation_d_une_grandeur_vectorielle}
+\end{marginfigure}
+Une grandeur vectorielle, que nous noterons $\overrightarrow{A}$, est caractérisée de manière unique par :
+\begin{itemize}
+	\item une norme \textbf{positive}, notée $\|\overrightarrow{A}\|$;
+	\item une direction ;
+	\item un sens.
+\end{itemize}
+On le représente par un segment orienté (une flèche) dont la longueur est proportionnelle à $\|\overrightarrow{A}\|$. En physique, la norme représente la valeur de la grandeur\sidenote[][*0]{C'est pourquoi, en physique la norme est souvent notée $A$.}. Par exemple, la norme d'un vecteur force est son intensité en newton, celle du vecteur vitesse est sa valeur en mètre par seconde, celle d'un vecteur déplacement s'exprime en mètre, etc.
+
+Un vecteur de norme nulle, ne présente ni sens ni direction. On l'appelle \emph{vecteur nulle} et le note $\overrightarrow{0}$.
+
+\begin{marginfigure}
+\centering
+	\begin{tikzpicture}[font=\footnotesize]
+			\draw[force] (20:1)--(20:3)node[midway,below]{$\overrightarrow{A}$};
+			\draw[force,shift={(1.5,-1)}] (20:1)--(20:3)node[midway,below]{$\overrightarrow{B}$};
+	\end{tikzpicture}
+\caption{Deux vecteurs identiques.}
+\labfig{deux_vecteurs_identiques}
+\end{marginfigure}
+Deux vecteurs sont égaux lorsqu'ils ont même direction, même sens et même norme. Autrement dit on est libre de déplacer un vecteur tant qu'on ne change ni son orientation ni sa norme.
+
+
+% subsection definition (end)
+\subsection{Propriétés} % (fold)
+La somme de deux vecteurs $\overrightarrow{A}$ et $\overrightarrow{B}$ est un vecteur (notons le $\overrightarrow{C}$). Il s'obtient en mettant bout à bout les flèches associées à $\overrightarrow{A}$ et $\overrightarrow{B}$, puis en joignant les extrémités. Insistons sur le fait qu'\textbf{en physique on ne peut sommer que deux grandeurs vectorielles de même dimension} : ajouter un vecteur force et un vecteur vitesse n'a strictement aucun sens.
+
+On peut vérifier géométriquement que l'addition vectorielle est associative, commutative, et admet un élément neutre et un opposé :
+\[\begin{aligned}
+	(\overrightarrow{A}+\overrightarrow{B})+\overrightarrow{C}=\overrightarrow{A}+(\overrightarrow{B}+\overrightarrow{C})\qquad\text{(associativité)}\\
+	\overrightarrow{A}+\overrightarrow{B}=\overrightarrow{B}+\overrightarrow{A}\qquad\text{(commutativité)}\\
+	\overrightarrow{A}+\overrightarrow{0}=\overrightarrow{A}\qquad\text{(élément neutre)}\\
+	\overrightarrow{A}+(\overrightarrow{-A})=\overrightarrow{0}\qquad\text{(opposé)}\\	
+\end{aligned}
+\]
+\begin{figure}
+\centering
+	\begin{tikzpicture}[font=\footnotesize]
+		\draw[force,shift={(-.5,0)}](0,0)--(3,0)node[below,midway]{$\overrightarrow{A}$};
+		\draw[shift={(7.5,0)},force](0,0)--(30:2)node[below,midway]{$\overrightarrow{B}$};		
+		\draw[shift={(3,0)},dashed,gray,->](0,0)--(3,0)node[below,midway]{$\overrightarrow{A}$};
+		\draw[shift={(6,0)},dashed,gray,->](0,0)--(30:2)node[below,midway]{$\overrightarrow{B}$};
+		\draw[shift={(3,0)},force](0,0)--($(3,0)+(30:2)$)node[above,midway]{$\overrightarrow{C}$};
+	\end{tikzpicture}
+\caption{Somme de deux vecteurs.}
+\labfig{somme_de_deux_vecteurs}
+\end{figure}
+Il est assez évident également qu'en général $\|\overrightarrow{A}+ \overrightarrow{B}\|\neq \|\vec{A}\|+\|\vec{B}\|$.
+
+\begin{marginfigure}[*1]
+\centering
+	\begin{tikzpicture}[font=\footnotesize]
+		\draw[force](0,0)--(1,0.5)node[above=3pt]{$\overrightarrow{A}$};
+		\draw[force,shift={(1.25,0)}](0,0)--(2,1)node[midway,above=3pt]{$2\overrightarrow{A}$};
+		\draw[force,shift={(3,0)}](2,1)--(0,0)node[midway,above=3pt]{$-2\overrightarrow{A}$};
+	\end{tikzpicture}
+\caption{Multiplication par une constante.}
+\labfig{multiplication_par_une_constante}
+\end{marginfigure}
+Si $\lambda$ est un réel et $\overrightarrow{A}$ un vecteur, alors $\lambda \, \overrightarrow{A}$ est un vecteur \textbf{colinéaire} à $\overrightarrow{A}$ : leur droite support sont parallèles. Si $\lambda >0$, $\lambda \, \overrightarrow{A}$ présente le même sens que $\overrightarrow{A}$, si $\lambda <0$, $\lambda \, \overrightarrow{A}$ est de sens opposé. Concernant les normes on a la relation suivante : 
+\[
+	\|\lambda\,\overrightarrow{A}\|=|\lambda|\, \|\overrightarrow{A}\|
+\]
+
+% subsection (end)
+\subsection{Base vectorielle} % (fold)
+\textbf{Généralités} -- On dit que deux vecteurs $(\overrightarrow{u_1}~,~\overrightarrow{u_2})$ forment une base $\mathcal{B}$ du plan, si tout vecteur du plan peut s'exprimer comme une combinaison linéaire de ces vecteurs de base :
+\[
+	\overrightarrow{A}=A_1\, \overrightarrow{u_1}+A_2\, \overrightarrow{u_2}=
+	\begin{pmatrix}
+		A_1\\A_2
+	\end{pmatrix}
+\]
+$A_1$ et $A_2$ désignent les \textbf{composantes} du vecteur $\overrightarrow{A}$ dans la base $\mathcal{B}$.
+\begin{marginfigure}
+\centering
+	\begin{tikzpicture}[font=\footnotesize]
+		\draw[gray](70:2.2)--(0,0)--(4.2,0);
+		\foreach \x in{1,2,3,4}
+		\draw[lightgray,thin,dashed,shift={(\x,0)}](70:2.2)--(0,0);
+		\foreach \y in{1,2}
+		\draw[lightgray,thin,dashed](70:\y)--++(4.2,0);
+		\draw[vecteur](0,0)--++(1,0)node[midway,below]{$\overrightarrow{u_1}$};
+		\draw[vecteur](0,0)--++(70:1)node[midway,left]{$\overrightarrow{u_2}$};
+		\draw[force](0,0)--($(3,0)+(70:2)$)node[above right]{$\overrightarrow{A}$};
+		\draw[vecteur](0,0)--++(3,0)node[below]{$3\overrightarrow{u_1}$};
+		\draw[vecteur](3,0)--++(70:2)node[below right]{$2\overrightarrow{u_2}$};
+	\end{tikzpicture}
+\caption{Décomposition d'un vecteur dans une base.}
+\labfig{decomposition}
+\end{marginfigure}
+
+Dans l'exemple de la \reffig{decomposition}, on peut écrire le résultat ainsi : 
+\[
+\overrightarrow{A}=3\,\overrightarrow{u_1}+2\,\overrightarrow{u_2}=
+	\begin{pmatrix}3\\0\end{pmatrix}
+	+\begin{pmatrix}0\\2\end{pmatrix}=
+	\begin{pmatrix}3\\2\end{pmatrix}	
+\]
+Autrement dit, les composantes s'ajoutent. Cette propriété se généralise :
+\[
+	\text{soient}\quad
+	\overrightarrow{A}\begin{pmatrix}A_1\\A_2\end{pmatrix}
+	\quad\text{et}\quad
+	\overrightarrow{B}\begin{pmatrix}B_1\\B_2\end{pmatrix}
+	\quad\Longrightarrow\quad
+	\overrightarrow{A}+\overrightarrow{B}=\begin{pmatrix}A_1+B_1\\A_2+B_2\end{pmatrix}
+\]
+\begin{marginfigure}[*0]
+\centering
+	\begin{tikzpicture}[font=\footnotesize]
+		\draw[gray](90:2.2)--(0,0)--(4.2,0);
+		\foreach \x in{1,2,3,4}
+		\draw[lightgray,thin,dashed,shift={(\x,0)}](90:2.2)--(0,0);
+		\foreach \y in{1,2}
+		\draw[lightgray,thin,dashed](90:\y)--++(4.2,0);
+		\fill[orange,opacity=0.5] (0,0)--(1,0)arc(0:{atan(2/3)}:1)--cycle;
+		\draw (0.65,0)node[above=1pt]{$\alpha$};
+		\draw[vecteur](0,0)--++(1,0)node[midway,below]{$\overrightarrow{u_x}$};
+		\draw[vecteur](0,0)--++(90:1)node[midway,left]{$\overrightarrow{u_y}$};
+		\draw[force](0,0)--($(3,0)+(90:2)$)node[above right]{$\overrightarrow{A}$};
+		\draw[dashed](3,2)--(3,-2pt)node[below]{$A_x$};
+		\draw[dashed](3,2)--(-2pt,2)node[left]{$A_y$};
+	\end{tikzpicture}
+\caption{Base cartésienne.}
+\labfig{base_cartesienne}
+\end{marginfigure}
+\textbf{Base cartésienne} -- Il s'agit d'une \emph{base orthonormée} : les vecteurs de base ont pour norme 1 et sont perpendiculaires entre eux. Dans un espace à deux dimensions, la base cartésienne est formée de deux vecteurs :
+\[
+	(\overrightarrow{u_x},\overrightarrow{u_y})
+	\quad\text{avec}\quad \|\overrightarrow{u_x}\|=\|\overrightarrow{u_y}\|=1
+	\quad\text{et}\quad\overrightarrow{u_x}\perp\overrightarrow{u_y}
+\] 
+
+Dans le plan, il est aisé d'exprimer les composantes cartésiennes d'un vecteur en fonction de sa norme et de l'angle que forme le vecteur avec un des axes cartésiens : 
+\(
+	\overrightarrow{A}=\begin{pmatrix}A_x=A\cos\alpha\\A_y=A \sin\alpha\end{pmatrix}
+\)
+
+\begin{marginfigure}[*0]
+\centering
+	\begin{tikzpicture} [scale=1,x={(-0.353cm,-0.353cm)}, y={(1cm,0cm)}, z={(0cm,1cm)},font=\footnotesize]]
+	\coordinate (O) at (0, 0, 0);
+	\coordinate (M) at (4, 3, 2);
+	\coordinate (P) at (1.5, 1.25, 4);
+	\coordinate (Pxy) at (1.5, 1.25,0);
+	\coordinate (Px) at (1.5,0,0);
+	\coordinate (Py) at (0,1.25, 0);
+	\coordinate (Pz) at (0, 0, 4);
+	\coordinate (Mxy) at (4,3,0);
+	\coordinate (Mx) at (4,0,0);
+	\coordinate (My) at (0, 3, 0);
+	\coordinate (Mz) at (0, 0, 2);
+	%axes et vecteurs unitaires  et définition de x,y,z
+	\draw[gray,thin] (O) -- +(5, 0,   0) ;
+	\draw[gray,thin] (O) -- +(0,  3.5, 0) ;
+	\draw[gray,thin] (O) -- +(0,  0,   4.25) ;
+	\draw[vecteur] (O)-- ++(1,0,0)node[midway,left=5pt]{$\overrightarrow{{u}_{x}}$};
+	\draw[vecteur] (O)-- ++(0,1,0)node[midway,below]{$\overrightarrow{{u}_{y}}$};
+	\draw[vecteur] (O)-- ++(0,0,1)node[midway,left]{$\overrightarrow{{u}_{z}}$};;
+	% points M et P
+	\draw[gray,thin, dashed] (M)--(Mz) node [left] {$z_1$};
+	\draw[gray,thin, dashed] (M)--(Mxy);
+	\draw[gray,thin, dashed] (Mxy)--(Mx) node [left] {$x_1$};
+	\draw[gray,thin, dashed] (Mxy)--(My)node [above] {$y_1$};
+	\draw[gray,thin, dashed] (P)--(Pz) node [left] {$z_2$};
+	\draw[gray,thin, dashed] (P)--(Pxy);
+	\draw[gray,thin, dashed] (Pxy)--(Px) node [left] {$x_2$};
+	\draw[gray,thin, dashed] (Pxy)--(Py)node [above] {$y_2$};
+	\draw (O)node{$\bullet$}node[left]{O}--(P) node{$\bullet$} node[right]{P$_2(x_2\,;\,y_2\,;\,z_2)$};
+	\draw (O)--(M) node{$\bullet$} node[right]{P$_1(x_1\,;\,y_1\,;\,z_1)$};
+	% vecteur MP
+	\draw[force] (M)--(P);
+	\end{tikzpicture} 
+\caption{Exemple de repère cartésien.}
+\labfig{exemple_de_repere_cartesien}
+\end{marginfigure}
+\textbf{Repère d'espace -- } Un repère d'espace est constitué d'un point O, appelé \emph{origine}, et d'une base de deux vecteurs $(\overrightarrow{u_1}~,~\overrightarrow{u_2})$ si on se place dans le plan euclidien, ou de trois vecteurs $(\overrightarrow{u_1}~,~\overrightarrow{u_2}~,~\overrightarrow{u_3})$ dans l'espace euclidien à trois dimensions. Les \textbf{coordonnées} $(x~;~y~;~z)$ d'un point P dans un repère tridimensionnel sont les composantes du vecteur $\overrightarrow{\text{OP}}$ : 
+\[
+\overrightarrow{\text{OP}}=x\, \overrightarrow{u_1}+y\, \overrightarrow{u_2}+z\, \overrightarrow{u_3}
+\]
+Considérons deux points, P$_1$ et P$_2$, de coordonnées $(x_1~;~y_1~;~z_1)$ et $(x_2~;~y_2~;~z_2)$. Le vecteur $\overrightarrow{\mathrm{P_1P_2}}$ s'écrit
+\[
+	\overrightarrow{\mathrm{P_1P_2}}=\overrightarrow{\mathrm{P_1O}}+\overrightarrow{\mathrm{OP_2}}=
+	\overrightarrow{\mathrm{OP_2}}-\overrightarrow{\mathrm{OP_1}}=
+	\begin{pmatrix}
+		x_2-x_1\\y_2-y_1\\z_2-z_1
+	\end{pmatrix}
+\] 
+\begin{kaoexample}[frametitle=Exemple 1 -- Détermination de l'équation d'une droite]
+	Considérons A(-1~;~-2) un point du plan muni d'un repère cartésien et un vecteur $\overrightarrow{u}=\begin{pmatrix}2\\3\end{pmatrix}$. Cherchons l'équation de la droite $\mathcal{D}$ parallèle à $\overrightarrow{u}$ et passant par A. Pour cela, appelons M($x~;~y$) un point quelconque situé sur la droite. Par hypothèse, le vecteur $\overrightarrow{\text{AM}}$ est colinéaire à $\overrightarrow{u}$. On a donc $\overrightarrow{\text{AM}}=\lambda~\overrightarrow{u}$ où $\lambda$ est un réel quelconque. On a 
+	\[
+	\overrightarrow{\text{AM}}=\begin{pmatrix}x+1\\y+2\end{pmatrix}
+	\quad\text{et}\quad\lambda~\overrightarrow{u}\begin{pmatrix}2\lambda\\3\lambda\end{pmatrix}
+	\]
+	Deux vecteurs sont égaux si, et seulement si, leurs composantes sont égales. Aussi peut-on écrire deux relations scalaires :
+	\[
+	x+1=2\lambda
+	\quad\text{et}\quad y+2=3\lambda
+	\]
+	En faisant le rapport des deux équations afin d'éliminer $\lambda$, on obtient la relation recherchée : 
+	\[
+	\frac{x+1}{y+2}=\frac23
+	\quad\text{soit}\quad
+	y=\frac32 x-\frac12
+	\]
+\end{kaoexample} 
+\begin{marginfigure}[*-17]
+\centering
+	\begin{tikzpicture}[scale=.75,font=\footnotesize]
+		\clip (-3.2,-3.2)rectangle(3.2,3.2);
+		\draw[gray](0,3.2)--(0,-3.2);
+		\draw[gray](-3.2,0)--(3.2,0);
+		\foreach \x in{-3,-2,-1,1,2,3}
+			\draw[dashed,lightgray](\x,3.2)--(\x,-3.2);
+		\foreach \y in {-3,-2,-1,1,2,3}
+			\draw[dashed,lightgray](-3.2,\y)--(3.2,\y);
+		\draw[->](0,0)node[below left]{\footnotesize O}--++(1,0)node[midway,below]{$\overrightarrow{u_x}$};
+		\draw[->](0,0)--++(90:1)node[midway,left]{$\overrightarrow{u_y}$};
+		\draw[force](-2,-1)--(0,2)node[midway, left]{$\overrightarrow{u}$};
+		\draw (-1,-2)node{•}node[above left]{A};
+		\draw[thick] (-2,-3.5)--(3,4)node[pos=0.8,left=5pt]{$\mathcal{D}$};
+	\end{tikzpicture}
+	\caption{Droite parallèle à une direction et contenant le point A.}
+	\labfig{droite_parallele}
+\end{marginfigure}
+
+\textbf{Généralisation --} Ces notions se généralisent à tout espace vectoriel de dimension $n$. Dans un tel espace on peut toujours trouver $n$ vecteurs indépendants\sidenote[][*0]{Aucun de ces vecteurs ne peut s'exprimer en fonction des autres. On dit qu'ils forment une famille libre.} $\overrightarrow{u}_{i=(1,\ldots,n)}$ et chaque vecteur peut s'exprimer comme une \textbf{combinaison linéaire} de ces $n$ vecteurs de base : 
+\[
+	\overrightarrow{A}=\sum_{i=1}^n A_i \overrightarrow{u_i}
+\]
+% subsection base (end)
+\subsection{Équation vectorielle} % (fold)
+\label{sub:equation_vectorielle}
+Il arrive souvent en physique que l'on doive résoudre une  équation vectorielle du type $\overrightarrow{A}+\overrightarrow{B}=\overrightarrow{0}$. Le plus simple consiste souvent à exprimer ces deux vecteurs dans une base arbitraire puis à écrire l'égalité pour chaque composante : on dit que l'on projette la relation vectorielle sur les différents axes :
+\[
+	\overrightarrow{A}\begin{pmatrix}A_1\\A_2\\A_3\end{pmatrix}+
+	\overrightarrow{B}\begin{pmatrix}B_1\\B_2\\B_3\end{pmatrix}=\overrightarrow{0}
+	\quad\Rightarrow\quad
+	\left\{\begin{array}{rcl}
+	A_1+B_1&=&0\\
+	A_2+B_2&=&0\\
+	A_3+B_3&=&0
+	\end{array}\right.	
+\]
+
+\begin{kaoexample}[frametitle=Exemple 2 -- Équilibre de trois masses]
+	Trois masses sont mises en équilibre à l'aide du dispositif ci-contre. D'après les lois de la mécanique, la résultante des forces de tension est nulle, d'où l'équation vectorielle 
+	\[
+	\overrightarrow{T_1}+\overrightarrow{T_2}+\overrightarrow{T_3}=\overrightarrow{0}
+	\]
+	On suppose que chaque tension est proportionnelle à la masse de suspension : 
+	\[
+		T_1=\alpha m'\quad;\quad T_2=\alpha m' \quad\text{et}\quad T_3=\alpha m
+	\]
+	et l'on cherche la relation entre l'angle $\theta$ et les masses $m$ et $m'$.
+	
+	Les trois forces étant coplanaires, représentons-les dans un repère cartésien (0; $\overrightarrow{u_x}~,~\overrightarrow{u_y}$), puis déterminons leurs composantes :
+	\begin{center}
+		\begin{tikzpicture}[font=\footnotesize]
+		\draw[vecteur](0,0)--++(1,0)node[below]{$\overrightarrow{u_x}$};
+		\draw[vecteur](0,0)--++(0,1)node[left]{$\overrightarrow{u_y}$};
+		% \draw[gray,dashed] (-2,-1) grid (2,1);
+		\draw[force] (0,0)--++(20:1.5)node[above]{$\overrightarrow{T_2}$};
+		\draw[force] (0,0)--++(160:1.5)node[above]{$\overrightarrow{T_1}$};
+		\draw[force] (0,0)--++(-90:.5)node[right]{$\overrightarrow{T_3}$};
+		\draw (90:10pt)arc(90:20:10pt)node[midway,above]{$\frac{\theta}{2}$};
+		\draw (90:10pt)arc(90:160:10pt)node[midway,above]{$\frac{\theta}{2}$};
+		\draw[gray, thin](0,0)-|(20:1.5);
+		\draw[gray, thin](0,0)-|(160:1.5);
+		\draw (-2,0)node[left]{$\overrightarrow{T_1}\begin{pmatrix}-T_1\sin\theta/2 \\ T_1\cos\theta/2\end{pmatrix}$};
+		\draw (2,0.5)node[right]{$\overrightarrow{T_2}\begin{pmatrix}T_2\sin\theta/2 \\ T_2\cos\theta/2\end{pmatrix}$};
+		\draw (2,-.5)node[right]{$\overrightarrow{T_3}\begin{pmatrix}0 \\ -T_3\end{pmatrix}$};
+		\end{tikzpicture}
+	\end{center}
+	La condition d'équilibre mécanique se traduit par un système de deux équations
+	\[
+	\begin{array}{rcl}
+		-m'\sin\dfrac{\theta}{2}+m'\sin\dfrac{\theta}{2}&=&0\\
+		m'\cos\dfrac{\theta}{2}+m'\cos\dfrac{\theta}{2}-m&=&0\\
+	\end{array}
+	\quad\text{soit}\quad
+	\cos\dfrac{\theta}{2}=\frac{m}{2m'}
+	\]
+	On notera que si $m>2m'$, l'équilibre est impossible, car la valeur d'un cosinus ne peut pas dépasser un : la masse $m$ chute alors verticalement.
+\end{kaoexample} 
+
+\begin{marginfigure}[*-22]
+\centering
+\begin{tikzpicture}[font=\footnotesize]
+	% le fil
+	\draw (0,0)node{•}--++(170:2)arc(80:180:10pt)--++(0,-3);
+	\draw (0,0)--++(10:2)arc(100:0:10pt)--++(0,-3);
+	\draw (0,0)--++(0,-2);
+	% les poulies
+	\fill[lightgray] (0,0)++(170:2)arc(80:440:10pt);
+	\fill[lightgray] (0,0)++(10:2)arc(100:460:10pt);
+	\draw (0,0)++(170:2)++(80:-10pt)node{•};
+	\draw (0,0)++(10:2)++(100:-10pt)node{•};
+	% les masses
+	\draw[bloc] (0,-2)circle(5pt)node[below=5pt,black]{$m$};
+	\draw[bloc] (1.97cm+11.7pt,-2.65cm-9.8pt)circle(5pt)node[below=5pt,black]{$m'$};
+	\draw[bloc] (-1.97cm-11.7pt,-2.65cm-9.8pt)circle(5pt)node[below=5pt,black]{$m'$};
+	% les forces
+	\draw[force] (0,0)--++(10:1.5)node[above]{$\overrightarrow{T_2}$};
+	\draw[force] (0,0)--++(170:1.5)node[above]{$\overrightarrow{T_1}$};
+	\draw[force] (0,0)--++(-90:.5)node[right]{$\overrightarrow{T_3}$};
+	% l'angle theta
+	\draw (10:10pt)arc(10:170:10pt);
+	\draw (90:10pt)node[above]{$\theta$};
+\end{tikzpicture}
+\caption{Trois masses en équilibre.}
+\labfig{equilibre_d_une_masse}
+\end{marginfigure}
+
+% subsection equation_vectorielle (end)
+\subsection{Vecteur lié}% (fold)
+
+\begin{marginfigure}[*1]
+	\begin{tikzpicture} [scale=1,font=\footnotesize]
+    \draw[gray] (-3,0)--(0,0)--++(0,-2)-- cycle;
+	\fill[lightgray]  (-3,0)--(0,0)--++(0,-2)-- cycle;
+	\shadedraw[monOrange, top color=monOrange!50!white,bottom color=monOrange] (-2,0) rectangle (2,.3);
+	\draw[force](1.5,.15)node{•}node[above=2pt]{B}--++(0,-1)node[right]{$\overrightarrow{F}$};
+	\draw[force](-1,.15)node{•}node[above=2pt]{A}--++(0,-1)node[right]{$\overrightarrow{F'}$};
+	\end{tikzpicture}
+\centering
+\caption{Corps soumis à une action.}
+\labfig{corps_soumis_a_une_action}
+\end{marginfigure}
+En physique, certaines grandeurs ont les attributs d'un vecteur (une norme, une direction et un sens) tout en présentant une caractéristique supplémentaire : un point d'application. C'est le cas de la force, objet fondamental de la mécanique. Par exemple, sur la \reffig{corps_soumis_a_une_action}, suivant que la force s'exerce en A ou en B, les conséquences sont différentes. De ce point de vue, les actions $\overrightarrow{F}$ et $\overrightarrow{F'}$ sont différentes, bien que ces deux vecteurs soient identiques. 
+
+On modélise ce type de grandeur à l'aide du concept de \emph{vecteur lié}, ou \emph{pointeur}. Un vecteur lié est un couple formé par un vecteur $\overrightarrow{v}$ et un point A ; on le note $(A,\overrightarrow{v})$. 
+% (end)
+% section les_vecteurs (end)
+
+
+\section{Produit scalaire} % (fold)
+
+\subsection{Définition et propriétés} % (fold)
+\begin{marginfigure}[*2]
+\centering
+	\begin{tikzpicture}[font=\footnotesize]
+		\draw [force] (0,0)--++(50:2.5) node [midway, shift={(-0.25,0.25)}] {$\overrightarrow{A}$};
+		\draw [force] (0,0)--++(10:1.5) node [midway, shift={(0.25,-0.25)}] {$\overrightarrow{B}$};
+		\draw (10:0.75) arc (10:50:0.75) node [midway,above right] {$\theta$};
+	\end{tikzpicture}
+\caption{Angle formé par deux vecteurs.}
+\labfig{produit_scalaire}
+\end{marginfigure}
+Le produit scalaire de deux vecteurs $\overrightarrow{A}$ et $\overrightarrow{B}$, noté $\overrightarrow{A}\cdot \overrightarrow{B}$, est le nombre réel (ou scalaire, d'où son nom) :
+\begin{equation}
+\fcolorbox{filet}{fond}{\hspace{0.5em}
+\(\displaystyle
+	\overrightarrow{A}\cdot \overrightarrow{B} \stackrel{\text{def}}=
+	\|\overrightarrow{A}\|\times\|\overrightarrow{B}\|\times\cos(\theta)
+\)\hspace{0.5em}}
+\hspace{0.5em}\heartsuit
+\label{eq:vecteurs_1}
+\end{equation}
+où $\theta$ est l'angle formé par les deux vecteurs. Notez qu'il n'est pas nécessaire d'orienter les angles pour calculer un produit scalaire.
+
+Le produit scalaire est positif quand l'angle est aigüe, négatif quand il est obtus.
+
+\textbf{Propriétés --} 
+\begin{itemize}
+	\item Le produit scalaire est commutatif : $\overrightarrow{B}\cdot \overrightarrow{A}=\overrightarrow{A}\cdot \overrightarrow{B}$.
+	\item Le produit scalaire est distributif : $\overrightarrow{A}\cdot(\overrightarrow{B}+\overrightarrow{C})=\overrightarrow{A}\cdot \overrightarrow{B}+\overrightarrow{A}\cdot \overrightarrow{C}$.
+	\item le carré scalaire donne le carré de la norme puisque $\overrightarrow{A}^2=\|\overrightarrow{A}\|^2$.
+	\item si $\overrightarrow{A}\perp \overrightarrow{B}$, alors $\overrightarrow{A}\cdot \overrightarrow{B}= 0$;	
+\end{itemize}
+
+\exercice{À quelle condition a-t-on $\|\overrightarrow{A}+ \overrightarrow{B}\|= \|\vec{A}\|+\|\vec{B}\|$ ?\\
+\emph{Rép.} si $\overrightarrow{A}$ et $\overrightarrow{B}$ sont de même direction \textbf{et} de même sens.
+}
+
+Dans une base cartésienne, le produit scalaire s'exprime simplement en fonction des composantes. En effet, 
+\[
+	\begin{array}{rcl}
+		\overrightarrow{A}\cdot \overrightarrow{B}&=&
+		(A_x\, \overrightarrow{u_x}+A_y\, \overrightarrow{u_y})\cdot(B_x\, \overrightarrow{u_x}+B_y\, \overrightarrow{u_y})\\[2mm]
+		&=&A_xB_x\, \overrightarrow{u_x}^2+A_yB_y\, \overrightarrow{u_y}^2+A_xB_y\, \overrightarrow{u_x}\cdot \overrightarrow{u_y}+A_yB_x\, \overrightarrow{u_y}\cdot \overrightarrow{u_x}
+	\end{array}
+\]
+soit, puisque $\|\overrightarrow{u_x}\|=\|\overrightarrow{u_y}\|=1$ et $\overrightarrow{u_x}\cdot \overrightarrow{u_y}=0$,
+\[
+	\overrightarrow{A}\cdot \overrightarrow{B}=\begin{pmatrix}A_x\\A_y\end{pmatrix}\cdot\begin{pmatrix}B_x\\B_y\end{pmatrix}=
+		A_xB_x+A_yB_y
+\]
+Cette propriétés se généralise dans un repère cartésien à trois dimensions : 
+
+\begin{equation}
+\fcolorbox{filet}{fond}{\hspace{0.5em}
+\(\displaystyle
+	\overrightarrow{A}\cdot \overrightarrow{B}=\begin{pmatrix}A_x\\A_y\\A_z\end{pmatrix}\cdot\begin{pmatrix}B_x\\B_y\\B_z\end{pmatrix}=
+		A_xB_x+A_yB_y+A_zB_z
+\)\hspace{0.5em}}
+\hspace{0.5em}\heartsuit
+\label{eq:vecteurs2}
+\end{equation}
+
+
+En conséquence, la norme $\|\overrightarrow{A}\|$ d'un vecteur exprimé dans une base orthonormée est donnée par la relation
+\begin{equation}
+\fcolorbox{filet}{fond}{\hspace{0.5em}
+\(\displaystyle
+\|\overrightarrow{A}\|^2=\overrightarrow{A}^2={A_x}^2+{A_y}^2+{A_z}^2
+\quad\text{soit}\quad
+\|\overrightarrow{A}\|=\sqrt{{A_x}^2+{A_y}^2+{A_z}^2}
+\)\hspace{0.5em}}
+\hspace{0.5em}\heartsuit
+\label{eq:vecteurs3}
+\end{equation}
+\marginnote[*-3]{On peut retrouver ce résultat à l'aide du Théorème de Pythagore.}
+% subsection definition_et_proprietes (end)
+\subsection{Applications} % (fold)
+Le produit scalaire fait parti des outils indispensables en physique. Il permet de calculer un angle, une norme, ou une composante suivant un axe.  Illustrons par quelques exemples.
+
+\begin{kaoexample}[frametitle=Exemple 3 -- Calcul d'un angle]
+Reprenons le problème de mécanique de l'exemple 2. On peut calculer l'angle $\theta$ directement à l'aide d'un produit scalaire. En effet, on a 
+\[
+	\overrightarrow{T_1}\cdot \overrightarrow{T_2}=T_1T_2\cos\theta
+\]
+Mais puisque $\overrightarrow{T_1}+\overrightarrow{T_2}+\overrightarrow{T_3}=\overrightarrow{0}$, on a également 
+\[
+	\overrightarrow{T_1}\cdot \overrightarrow{T_2}=\overrightarrow{T_1}\cdot\left(-\overrightarrow{T_1}-\overrightarrow{T_3}\right)=
+	-{T_1}^2-T_1T_3\cos(\pi-\theta/2)	
+\]
+Comme $T_1=T_2=\alpha m'$ et $T_3=\alpha m$, on en déduit la relation 
+\[
+	m'^2\cos\theta=-m'^2+mm'\cos\dfrac{\theta}{2}
+\]
+À l'aide de l'identité trigonométrique $\cos\theta=2\cos^2\frac{\theta}{2}-1$, on retrouve le résultat $\cos\dfrac{\theta}{2}=\dfrac{m}{2m'}$.
+\end{kaoexample} 
+\begin{marginfigure}[*-15]
+\centering
+\begin{tikzpicture}[font=\footnotesize]
+	% le fil
+	\draw (0,0)node{•}--++(170:2)arc(80:180:10pt)--++(0,-3);
+	\draw (0,0)--++(10:2)arc(100:0:10pt)--++(0,-3);
+	\draw (0,0)--++(0,-2);
+	% les poulies
+	\fill[lightgray] (0,0)++(170:2)arc(80:440:10pt);
+	\fill[lightgray] (0,0)++(10:2)arc(100:460:10pt);
+	\draw (0,0)++(170:2)++(80:-10pt)node{•};
+	\draw (0,0)++(10:2)++(100:-10pt)node{•};
+	% les masses
+	\draw[bloc] (0,-2)circle(5pt)node[below=5pt,black]{$m$};
+	\draw[bloc] (1.97cm+11.7pt,-2.65cm-9.8pt)circle(5pt)node[below=5pt,black]{$m'$};
+	\draw[bloc] (-1.97cm-11.7pt,-2.65cm-9.8pt)circle(5pt)node[below=5pt,black]{$m'$};
+	% les forces
+	\draw[force] (0,0)--++(10:1.5)node[above]{$\overrightarrow{T_2}$};
+	\draw[force] (0,0)--++(170:1.5)node[above]{$\overrightarrow{T_1}$};
+	\draw[force] (0,0)--++(-90:.5)node[right]{$\overrightarrow{T_3}$};
+	% l'angle theta
+	\draw (10:10pt)arc(10:170:10pt);
+	\draw (90:10pt)node[above]{$\theta$};
+\end{tikzpicture}
+\caption{Trois masses en équilibre.}
+\labfig{equilibre_d_une_masse2}
+\end{marginfigure}
+
+On peut aussi calculer la norme d'un vecteur en prenant son carré scalaire. 
+
+\begin{marginfigure}[*3]
+\centering
+	\begin{tikzpicture}[scale=.75,font=\footnotesize]
+		\draw[gray](0,2)node[above]{Nord}--(0,-1)node[below]{Sud};
+		\draw[gray](-1,0)node[left]{Ouest}--(3,0)node[right]{Est};
+		\draw[force](0,0)--(2.2,0)node[midway,below]{$\overrightarrow{v}_\text{A/air}$};
+		\draw[force](0,0)--(135:1)node[above]{$\overrightarrow{v}_\text{air/sol}$};
+		\draw (0:10pt)arc(0:135:10pt);
+		\draw (67:10pt)node[above]{$\alpha$};
+	\end{tikzpicture}
+\caption{Composition des vitesses.}
+\labfig{composition_des_vitesses}
+\end{marginfigure}
+\begin{kaoexample}[frametitle=Exemple 4 -- Vitesse d'un avion par rapport au sol]
+Supposons que les instruments de bord d'un avion A indique une vitesse de 500 km/h dans la direction Est, et que le vent souffle à une vitesse de 60 km/h dans la direction Nord-Ouest. Comment calculer la vitesse de l'avion par rapport au sol ?
+La vitesse au sol s'obtient à l'aide de la loi de composition des vitesses :
+\[
+	\overrightarrow{v}_\text{A/sol}=\overrightarrow{v}_\text{A/air}+\overrightarrow{v}_\text{air/sol}
+	\quad\text{avec}\quad \left\{
+	\begin{array}{rcl}
+		v_\text{A/air}&=& 500\,\mathrm{km.h^{-1}}\\
+		v_\text{air/sol}&=&60\,\mathrm{km.h^{-1}}		
+	\end{array}\right.
+\]
+La vitesse de l'avion par rapport au sol a pour valeur
+\[
+	\begin{array}{rcl}
+		v_\text{A/sol}	&=&\sqrt{\overrightarrow{v}_\text{A/sol}\cdot \overrightarrow{v}_\text{A/sol}}\\
+						&=&\sqrt{v^2_\text{A/air}+v^2_\text{air/sol}+2\overrightarrow{v}_\text{A/air}\cdot\overrightarrow{v}_\text{air/sol}}\\
+		v_\text{A/sol}	&=&\sqrt{v^2_\text{A/air}+v^2_\text{air/sol}+2v_\text{A/air}v_\text{air/sol}\cos\alpha}
+	\end{array}
+\]
+avec $\alpha=3\pi/4$. Numériquement, on trouve $v_\text{A/sol}=460\,\mathrm{km.h^{-1}}$.
+\end{kaoexample} 
+\begin{marginfigure}[*3]
+\centering
+	\begin{tikzpicture}[font=\footnotesize]
+		\draw [gray] (0,0)--++(10:3.5);
+		\fill [gray,shift={(10:3.03)},rotate=10](0,0)rectangle(3pt,3pt);		
+		\draw [vecteur] (0,0)--++(10:3.03) node [pos=.8,below] {$\overrightarrow{A_\parallel}$};
+		\draw [vecteur,shift={(10:3.03)}] (0,0)--++(100:1.75) node [midway,right] {$\overrightarrow{A_\perp}$};
+		\draw [force] (0,0)--++(40:3.5) node [midway, shift={(-0.25,0.25)}] {$\overrightarrow{A}$};
+		\draw [force] (0,0)--++(10:1.5) node [below] {$\overrightarrow{B}$};
+		\draw [vecteur] (0,0)--++(10:1) node [midway,below] {$\overrightarrow{u}$};
+		\draw [vecteur] (0,0)--++(10:1) node [midway,below] {$\overrightarrow{u}$};
+	\end{tikzpicture}
+\caption{Projection.}
+\labfig{Projection}
+\end{marginfigure}
+Enfin, le produit scalaire permet d'obtenir la projection orthogonale d'un vecteur suivant un axe orienté. En effet, imaginons que l'on souhaite projeter le vecteur $\overrightarrow{A}$ sur un axe orienté par le vecteur $\overrightarrow{B}$. On peut toujours écrire 
+\[
+	\overrightarrow{A}=\overrightarrow{A_\parallel}+\overrightarrow{A_\perp}
+\]
+où $\overrightarrow{A_\parallel}$ est colinéaire à $\overrightarrow{B}$ et $\overrightarrow{A_\perp}$ orthogonal  à $\overrightarrow{B}$. Notons $\overrightarrow{u}$ le vecteur unitaire orienté suivant $\overrightarrow{B}$ et posons $\overrightarrow{A_\parallel}=\lambda \, \overrightarrow{u}$. Le réel $\lambda$ représente la projection de $\overrightarrow{A}$ sur $\overrightarrow{B}$. On l'obtient en calculant le produit scalaire de $\overrightarrow{A}$ et $\overrightarrow{u}$ : 
+\[
+	\overrightarrow{A}\cdot \overrightarrow{u}=
+	(\overrightarrow{A_\parallel}+\overrightarrow{A_\perp})\cdot \overrightarrow{u}=
+	\overrightarrow{A_\parallel}\cdot \overrightarrow{u}=
+	\lambda \overrightarrow{u}\cdot \overrightarrow{u}=\lambda	
+\]
+\begin{kaoexample}[frametitle=Exemple 5 -- Expression de la base polaire dans la bas cartésienne]
+Considérons la base polaire (M ; $\overrightarrow{u_r}~,~\overrightarrow{u_\theta}$). Exprimons les deux vecteurs polaires dans la base cartésienne. 
+
+Commençons par $\overrightarrow{u_r}$ : $\overrightarrow{u_r}=\lambda_x\, \overrightarrow{u_x}+\overrightarrow{\lambda_y}\, \overrightarrow{u_y}$ avec $\lambda_x$ la projection de $\overrightarrow{u_r}$ sur l'axe (O$x$), et $\lambda_y$ la projection de $\overrightarrow{u_r}$ sur l'axe (O$y$). On a donc 
+\[
+	\lambda_x=\overrightarrow{u_r}\cdot\overrightarrow{u_x}=\cos\theta
+	\quad\text{et}\quad
+	\lambda_y=\overrightarrow{u_r}\cdot\overrightarrow{u_y}=\cos\left(\frac{\pi}{2}-\theta\right)=\sin\theta
+\] 
+Ainsi $\overrightarrow{u_r}=\cos(\theta)\, \overrightarrow{u_x}+\sin(\theta)\, \overrightarrow{u_y}$.
+
+Pour $\overrightarrow{u_\theta}$, on peut procéder de la même manière ; on peut aussi remarquer que le vecteur $\overrightarrow{u_\theta}$ est l'image de $\overrightarrow{u_r}$ par une rotation dans le sens direct d'un angle égal à $\pi/2$. Autrement dit, 
+\[
+	\overrightarrow{u_\theta}=\overrightarrow{u_r}(\theta+\pi/2)=
+	\cos\left(\theta+\frac{\pi}{2}\right)\, \overrightarrow{u_x}+\sin\left(\theta+\frac{\pi}{2}\right)\, \overrightarrow{u_y}=
+	-\sin(\theta)\, \overrightarrow{u_x}+\cos(\theta)\, \overrightarrow{u_y}	
+\]
+\end{kaoexample} 
+\begin{marginfigure}[*-15]
+\centering
+	\begin{tikzpicture}[font=\footnotesize]
+		\draw[gray](90:3.2)--(0,0)--(4.2,0);
+		\foreach \x in{1,2,3,4}
+		\draw[lightgray,thin,dashed,shift={(\x,0)}](90:3.2)--(0,0);
+		\foreach \y in{1,2,3}
+		\draw[lightgray,thin,dashed](90:\y)--++(4.2,0);
+		\draw(0,0)--(1,0)arc(0:{atan(2/3)}:1);
+		\draw (20:1)node[right=1pt]{$\theta$};
+		\draw[vecteur](0,0)--++(1,0)node[midway,below]{$\overrightarrow{u_x}$};
+		\draw[vecteur](0,0)--++(90:1)node[midway,left]{$\overrightarrow{u_y}$};
+		\draw(0,0)--($(3,0)+(90:2)$)node[midway,above]{$r$}node[below]{M};
+		\draw[vecteur]($(3,0)+(90:2)$)--++({atan(2/3)}:1)node[right]{$\overrightarrow{u_r}$};
+		\draw[vecteur]($(3,0)+(90:2)$)--++({atan(2/3)+90}:1)node[left]{$\overrightarrow{u_\theta}$};
+	\end{tikzpicture}
+\caption{Base polaire.}
+\labfig{base_polaire}
+\end{marginfigure}
+
+
+% subsection applications (end)
+
+
+% section produit_scalire (end)
+
+
+\section{Produit vectoriel} % (fold)
+
+\subsection{Définition et propriétés} % (fold)
+Le produit vectoriel des vecteurs $\overrightarrow{A}$ et $\overrightarrow{B}$, noté $\overrightarrow{A}\wedge\overrightarrow{B}$, est un \textbf{vecteur} aux caractéristiques suivantes : 
+\begin{itemize}
+	\item sa direction est perpendiculaire au plan formé par $\overrightarrow{A}$ et $\overrightarrow{B}$ ;
+	\item sons sens est donné par la règle des trois doigts de la main droite ;
+	\item sa norme vaut $\|\overrightarrow{A}\wedge\overrightarrow{B}\|=\|\overrightarrow{A}\|\times \|\overrightarrow{B}\|\times|\sin(\theta)|$ où $\theta$ est l'angle formé par $\overrightarrow{A}$ et $\overrightarrow{B}$.
+\end{itemize}
+\begin{marginfigure}[*-7]
+\centering
+\begin{tikzpicture}[scale=0.5,font=\footnotesize]
+  \coordinate (O) at (1.0,0.7); % ORIGIN
+  \coordinate (WT) at ( 2.9,-1.1); % WRIST TOP
+  \coordinate (T1) at ( 2.3, 0.7); % THUMB
+  \coordinate (T2) at ( 1.75, 2.3);
+  \coordinate (T3) at ( 2.0, 3.1);
+  \coordinate (T4) at (1.38, 3.15);
+  \coordinate (T5) at ( 0.9, 2.3);
+  \coordinate (T6) at ( 0.85, 1.2);
+  \coordinate (T7) at ( 0.85, 0.2);
+  \coordinate (I1) at (-1.1, 2.45); % INDEX
+  \coordinate (I2) at (-2.9, 3.45);
+  \coordinate (I3) at (-3.3, 2.9);
+  \coordinate (I4) at (-1.5, 1.8);
+  \coordinate (I5) at (-0.9, 1.1);
+  \coordinate (I6) at (-0.9, 0.3);
+  \coordinate (M1) at (-2.1, 0.9); % MIDDLE
+  \coordinate (M2) at (-3.95,0.55);
+  \coordinate (M3) at (-4.0,-0.15);
+  \coordinate (M4) at (-2.3, 0.05);
+  \coordinate (M5) at (-1.1, 0.20);
+  \coordinate (R1) at (-1.9,-0.1); % RING
+  \coordinate (R2) at (-1.8,-0.7);
+  \coordinate (R3) at (-0.3,-1.5);
+  \coordinate (R4) at ( 0.1,-1.7);
+  \coordinate (R5) at ( 0.1,-1.0);
+  \coordinate (R6) at (-0.5,-0.7);
+  \coordinate (R7) at (-1.2,-0.3);
+  \coordinate (P1) at (-1.9,-1.3); % PINKY
+  \coordinate (P2) at (-0.8,-1.9);
+  \coordinate (P3) at (-0.2,-2.1);
+  \coordinate (P4) at (-0.05,-1.65);
+  \coordinate (W1) at ( 0.4,-2.9); % WRIST BOTTOM
+  \coordinate (W2) at ( 1.6,-3.5);  
+  % HAND
+  \fill[pink!25]
+    (WT) -- (T6) -- (I5) -- (M5) -- (R2) -- (P2) -- (W2) to[out=25,in=-90] cycle;
+  \draw[fill=pink!25]
+    (WT) to[out=120,in=-60] % THUMB
+    (T1) to[out=120,in=-90]
+    (T2) to[out=80,in=-110]
+    (T3) to[out=80,in=50,looseness=1.5] % tip
+    (T4) to[out=-130,in=80]
+    (T5) to[out=-100,in=70]
+    (T6) to[out=-100,in=100]
+    (T7)
+    (T6) to[out=150,in=-30] % INDEX
+    (I1) to[out=150,in=-30]
+    (I2) to[out=150,in=145,looseness=1.7] % tip
+    (I3) to[out=-30,in=150]
+    (I4) to[out=-30,in=105]
+    (I5) to[out=-75,in=90]
+    (I6)
+    (I5) to[out=-170,in=10] % MIDDLE
+    (M1) to[out=-170,in=10]
+    (M2) to[out=-170,in=-175,looseness=1.8] % tip
+    (M3) to[out=5,in=-170]
+    (M4) to[out=10,in=-170] % bottom knuckle
+    (M5)
+    (M5) to[out=-160,in=50] % RING
+    (R1) to[out=-130,in=140,looseness=1.2]
+    (R2) to[out=-30,in=160]
+    (R3) --
+    (R4) to[out=-20,in=-20,looseness=1.5] % tip
+    (R5) --
+    (R6) to[out=140,in=8,looseness=0.9]
+    (R7)
+    (R2) to[out=-160,in=155] % PINKY
+    (P1) to[out=-35,in=150]
+    (P2) to[out=-30,in=160]
+    (P3) to[out=-20,in=-30,looseness=1.5] % tip
+    %(P4) --
+    (R4)
+    (P2) to[out=-50,in=140] % WRIST
+    (W1) to[out=-40,in=160]
+    (W2);
+	% FOLDS
+	\draw[very thin] (T5)++(-80:0.3) to[out=40,in=180]++ (25:0.45); % THUMB
+	\draw[very thin] (I1)++(180:0.2) to[out=-160,in=90]++ (-130:0.6); % INDEX
+	\draw[very thin] (I1)++(155:1.3) to[out=-150,in=80]++ (-130:0.55);
+	\draw[very thin] (M4)++(30:0.2) to[out=80,in=-65]++ (95:0.5); % MIDDLE FINGER
+	\draw[very thin] (M3)++(10:0.8) to[out=80,in=-75]++ (90:0.45);
+	\draw[very thin] (M5)++(-140:0.1) to[out=-20,in=90]++ (-54:0.8); % RING
+	\draw[very thin] (R6) to[out=160,in=10]++ (180:0.2);
+	\draw[very thin] (R3)++(155:0.5) to[out=120,in=-100]++ (100:0.2);
+	\draw[very thin] (P2)++(140:0.1) to[out=95,in=-110]++ (80:0.4); % PINKY
+	%\draw[very thin] (P1)++( 10:0.04) to[out=95,in=-130]++ (70:0.4);
+	\draw[very thin] (I5)++(-40:0.45) to[out=-70,in=90]++ (-70:1.7);    % PALM
+	\draw[very thin] (P3)++(-155:0.05) to[out=-120,in=40]++ (-130:0.2); % PALM
+	\draw[very thin] (W2)++(70:1.4) to[out=-175,in=-40]++ (160:1.4); % PALM
+	% VECTORS
+	% \def\R{0.32}
+	\draw[very thick,->]
+    (O) --++ (148:3.3) coordinate (X) node[above]{$\overrightarrow{B}$};
+	\draw[force](O) --++ (-172:4.25) coordinate (Y) node[below]{$\overrightarrow{A}\wedge \overrightarrow{B}$};
+	\draw[very thick,->](O) --++ (82:3.2) node[above]{$\overrightarrow{A}$};
+	% \draw pic[->,draw=black,thick,angle radius=30,angle eccentricity=1.2] {angle = X--O--Y};
+\end{tikzpicture}
+\caption{Règle de la main droite.}
+\labfig{regle_de_la_main_droite}
+\end{marginfigure}
+
+
+\textbf{Propriétés --} Le produit vectoriel est un produit distributif, anticommutatif :
+\begin{itemize}
+	\item $\overrightarrow{A}\wedge\overrightarrow{B}=-(\overrightarrow{B}\wedge\overrightarrow{A})$
+	\item $(\lambda\overrightarrow{A})\wedge\overrightarrow{B}=
+	\lambda(\overrightarrow{A}\wedge\overrightarrow{B})=\overrightarrow{A}\wedge(\lambda \overrightarrow{B})$ ;
+	\item $\overrightarrow{A}\wedge(\overrightarrow{B}+\overrightarrow{C})=\overrightarrow{A}\wedge\overrightarrow{B}+\overrightarrow{A}\wedge\overrightarrow{C}$ (distributivité) ;
+	\item Si $\overrightarrow{A}$ et $\overrightarrow{B}$ sont colinéaires, $\overrightarrow{A}\wedge\overrightarrow{B}=\overrightarrow{0}$
+\end{itemize}
+
+
+\textbf{Expression analytique du produit vectoriel -- } En physique on travaille souvent avec des bases orthonormées directes construites à partir de deux vecteurs unitaires orthogonaux : 
+\[
+(\overrightarrow{u_1}~;~\overrightarrow{u_2}~;~\overrightarrow{u_3}=\overrightarrow{u_1}\wedge \overrightarrow{u_2})
+\]
+C'est le cas des bases cartésienne, cylindrique et sphérique. Dans une telle base, il est facile de vérifier que 
+\begin{equation}
+	\overrightarrow{u_1}\wedge \overrightarrow{u_2}=\overrightarrow{u_3}
+	\quad
+	\overrightarrow{u_2}\wedge \overrightarrow{u_3}=\overrightarrow{u_1}
+	\quad\text{et}\quad
+	\overrightarrow{u_3}\wedge \overrightarrow{u_1}=\overrightarrow{u_2}
+	\label{eq:vecteurs4}
+\end{equation}
+Ces propriétés permettent d'exprimer simplement les composantes de $\overrightarrow{A}\wedge \overrightarrow{B}$ à partir de celles de $\overrightarrow{A}$ et $\overrightarrow{B}$. 
+\begin{kaobox}[frametitle=Expression du produit vectoriel]
+Le produit vectoriel de deux vecteurs exprimés dans la même base orthonormée directe s'écrit  
+	\[
+		\begin{pmatrix}A_1\\A_2\\A_3\end{pmatrix}
+		\wedge
+		\begin{pmatrix}B_1\\B_2\\B_3\end{pmatrix}
+			=
+		\begin{pmatrix}A_2B_3-A_3B_2\\A_3B_1-A_1B_3\\A_1B_2-A_2B_1\end{pmatrix}			
+	\]
+
+\end{kaobox} 
+
+\begin{kaoexample}[frametitle=Démonstration]
+Soit $\overrightarrow{A}=\sum_{i=1}^3 A_i\, \overrightarrow{u_i}$ et  $\overrightarrow{B}=\sum_{j=1}^3 B_j\, \overrightarrow{u_j}$. Le produit vectoriel $\overrightarrow{A}\wedge \overrightarrow{B}$ s'écrit
+	\begin{multline*}		
+		\left(\sum_{i=1}^3 A_i\, \overrightarrow{u_i}\right)\wedge 
+		\left(\sum_{j=1}^3 B_j\, \overrightarrow{u_j}\right)=
+		A_1B_1 \overrightarrow{u_1}\wedge \overrightarrow{u_1}+
+		A_1B_2 \overrightarrow{u_1}\wedge \overrightarrow{u_2}+
+		A_1B_3 \overrightarrow{u_1}\wedge \overrightarrow{u_3}\\
+		+
+		A_2B_1 \overrightarrow{u_2}\wedge \overrightarrow{u_1}+
+		A_2B_2 \overrightarrow{u_2}\wedge \overrightarrow{u_2}+
+		A_2B_3 \overrightarrow{u_2}\wedge \overrightarrow{u_3}\\
+		+
+		A_3B_1 \overrightarrow{u_3}\wedge \overrightarrow{u_1}+
+		A_3B_2 \overrightarrow{u_3}\wedge \overrightarrow{u_2}+
+		A_3B_3 \overrightarrow{u_3}\wedge \overrightarrow{u_3}
+	\end{multline*}	
+	Utilisons $\overrightarrow{u_i}\wedge \overrightarrow{u_i}=\overrightarrow{0}$, ainsi que la propriété d'anticommutativité :
+	\begin{multline*}		
+		\overrightarrow{A}\wedge \overrightarrow{B}=
+		A_1B_2 \overrightarrow{u_1}\wedge \overrightarrow{u_2}-
+		A_1B_3 \overrightarrow{u_3}\wedge \overrightarrow{u_1}-
+		A_2B_1 \overrightarrow{u_1}\wedge \overrightarrow{u_2}+
+		A_2B_3 \overrightarrow{u_2}\wedge \overrightarrow{u_3}\\
+		+
+		A_3B_1 \overrightarrow{u_3}\wedge \overrightarrow{u_1}
+		-A_3B_2 \overrightarrow{u_2}\wedge \overrightarrow{u_3}
+	\end{multline*} 
+	
+	En utilisant les relations \eqref{eq:vecteurs4} on aboutit à  
+	\begin{multline*}		
+		\overrightarrow{A}\wedge \overrightarrow{B}=
+		A_1B_2 \,\overrightarrow{u_3}-A_1B_3 \,\overrightarrow{u_2}-A_2B_1 \,\overrightarrow{u_3}+
+		A_2B_3 \,\overrightarrow{u_1}+A_3B_1 \,\overrightarrow{u_2}-A_3B_2 \,\overrightarrow{u_1}\\
+		=(A_2B_3-A_3B_2)\,\overrightarrow{u_1}+(A_3B_1-A_1B_3)\,\overrightarrow{u_2}+
+		(A_1B_2-A_2B_1)\,\overrightarrow{u_3}
+	\end{multline*}
+\end{kaoexample} 
+
+	
+
+\textbf{Interprétation géométrique -- } la norme du produit vectoriel de deux vecteurs $\overrightarrow{A}$  et $\overrightarrow{B}$ représente l'aire du parallélogramme formé par ces deux vecteurs. En effet 
+\[
+	\|\overrightarrow{A}\wedge \overrightarrow{B}\|=\|\overrightarrow{A}\|\times \|\overrightarrow{B}\| \sin\theta=\|\overrightarrow{B}\|\times h\quad\text{(base}\times\text{hauteur)}
+\]
+En divisant par 2 ce résultat on obtient l'aire du triangle formé par les deux vecteurs $\overrightarrow{A}$  et $\overrightarrow{B}$. 
+\begin{marginfigure}[*-7]
+\centering
+\begin{tikzpicture} [scale=1,x={(-0.353cm,-0.353cm)}, y={(1cm,0cm)}, z={(0cm,1cm)},font=\footnotesize]
+\coordinate (O) at (0, 0, 0);
+\coordinate (A) at (1,1,0);
+\coordinate (B) at (3,2,0);
+\coordinate (C) at (3,4,0);
+\coordinate (D) at (1,3,0);
+\coordinate (E) at (1,2,0);
+%axes et vecteurs unitaires  et définition de x,y,z
+\draw[gray,thin] (O) -- +(3, 0,   0) ;
+\draw[gray,thin] (O) -- +(0,  3.5, 0) ;
+\draw[gray,thin] (O) -- +(0,  0, 2) ;
+\draw[vecteur] (O)-- ++(1,0,0)node[midway,left=5pt]{$\overrightarrow{{u}_{x}}$};
+\draw[vecteur] (O)-- ++(0,1,0)node[above]{$\overrightarrow{{u}_{y}}$};
+\draw[vecteur] (O)-- ++(0,0,1)node[midway,left]{$\overrightarrow{{u}_{z}}$};
+\fill[black](O)--++(.3,0,0)--(.3,.2,0)--(0,.2,0)--cycle;
+% parallelogramme
+\fill[monOrange](A)--(B)--(C)--(D);
+\draw[gray,dashed](B)--(C)--(D);
+\draw[thin](B)--(E)node[midway,right]{$h$};
+\draw[thin](1.5,1.25,0) to[bend right] (1,1.5,0);
+\draw (1.75,1.75,0)node{$\theta$};
+\fill[black](E)--++(.3,0,0)--++(0,.2,0)--++(-.3,0,0)--cycle;
+% vecteurs
+\draw[force] (A)--(B)node[midway,left]{$\overrightarrow{A}$};
+\draw[force] (A)--(D)node[right]{$\overrightarrow{B}$};
+\draw[force] (A)--++(0,0,2)node[right]{$\overrightarrow{C}$};
+\end{tikzpicture} 
+\caption{Interprétation géométrique du produit vectoriel.}
+\labfig{interpretation_geometrique_du_produit_vectoriel}
+\end{marginfigure}
+
+
+% subsection definition_et_proprietes (end)
+\subsection{Produit mixte} % (fold)
+Le produit mixte de 3 vecteurs $\overrightarrow{A}$, $\overrightarrow{B}$ et $\overrightarrow{C}$ est le nombre réel, noté $[\overrightarrow{A},\overrightarrow{B},\overrightarrow{C}]$ qui vaut : 
+\begin{equation}
+\fcolorbox{filet}{fond}{\hspace{0.5em}
+\(\displaystyle
+[\overrightarrow{A},\overrightarrow{B},\overrightarrow{C}]=
+\overrightarrow{A}\cdot(\overrightarrow{B}\wedge\overrightarrow{C})
+\)\hspace{0.5em}}
+\hspace{0.5em}\heartsuit
+\label{eq:vecteurs5}
+\end{equation}
+\textbf{Propriétés --} 
+\begin{itemize}
+	\item Si $\overrightarrow{A}$, $\overrightarrow{B}$ et $\overrightarrow{C}$ sont trois vecteur coplanaires, alors $[\overrightarrow{A},\overrightarrow{B},\overrightarrow{C}]=0$. En effet, dans ce cas, $\overrightarrow{A}$ est une combinaison linéaire de $\overrightarrow{B}$ et $\overrightarrow{C}$, et par conséquent est parallèle à tout plan généré par $\overrightarrow{B}$ et $\overrightarrow{C}$. Comme $\overrightarrow{B}\wedge \overrightarrow{C}$ est orthogonal à ce plan, le produit scalaire entre $\overrightarrow{A}$ et $\overrightarrow{B}\wedge \overrightarrow{C}$ est nécessairement nul.
+	\item Le produit mixte est invariant vis à vis de toute permutation circulaire des trois vecteurs : 
+	\[
+		[\overrightarrow{A},\overrightarrow{B},\overrightarrow{C}]=
+		[\overrightarrow{B},\overrightarrow{C},\overrightarrow{A}]=
+		[\overrightarrow{C},\overrightarrow{A},\overrightarrow{B}]
+	\]
+	\item Le produit mixte change de signe lorsque l'on permute deux vecteurs : 
+	\[
+		[\overrightarrow{A},\overrightarrow{B},\overrightarrow{C}]=
+		-[\overrightarrow{B},\overrightarrow{A},\overrightarrow{C}]=
+		[\overrightarrow{B},\overrightarrow{C},\overrightarrow{A}]
+	\]
+	
+\end{itemize}
+
+\textbf{Base directe ou indirecte --} Une base est orthonormée directe lorsque les trois vecteurs unitaires forment un trièdre orthogonal et qu'ils respectent la règle de la main droite : autrement dit, $\overrightarrow{u_3}=\overrightarrow{u_1}\wedge \overrightarrow{u_2}$. Pour une base orthonormée indirecte on aura $\overrightarrow{u_3}=-\overrightarrow{u_1}\wedge \overrightarrow{u_2}$. Le signe du produit mixte permet de savoir si la base est directe. En effet, on vérifie aisément que  :
+\[
+	[\overrightarrow{u_1},\overrightarrow{u_2},\overrightarrow{u_3}]=
+	\begin{cases}
+		+1&\text{si base orthonormée directe}\\
+		-1&\text{si base orthonormée indirecte}\\		
+	\end{cases}
+\]
+
+\textbf{Relation avec le déterminant --} Soient 3 vecteurs $\overrightarrow{A}$, $\overrightarrow{B}$ et $\overrightarrow{C}$, exprimés dans une base orthonormée directe. Le produit mixte représente le déterminant de la matrice formée par les trois vecteurs colonnes. En effet 
+\begin{multline*}
+	\overrightarrow{A}\cdot(\overrightarrow{B}\wedge\overrightarrow{C})=
+	\begin{pmatrix}A_1\\A_2\\A_3\end{pmatrix}\cdot
+	\left[\begin{pmatrix}B_1\\B_2\\B_3\end{pmatrix}
+	\wedge
+	\begin{pmatrix}C_1\\C_2\\C_3\end{pmatrix}
+	\right]	=
+	\begin{pmatrix}A_1\\A_2\\A_3\end{pmatrix}\cdot	
+	\begin{pmatrix}B_2C_3-B_3C_2\\B_3C_1-B_1C_3\\B_1C_2-B_2C_1\end{pmatrix}=\\
+	A_1 \begin{vmatrix}B_2 & C_2\\B_3&C_3\end{vmatrix}-
+	A_2\begin{vmatrix}B_1 & C_1\\B_3&C_3\end{vmatrix}+	
+	A_3\begin{vmatrix}B_1 & C_1\\B_2&C_2\end{vmatrix}=
+	\begin{vmatrix}A_1&B_1&C_1\\A_2&B_2&C_3\\A_3&B_3&C_2\end{vmatrix}			
+\end{multline*}
+
+\exercice{Donner l'équation cartésienne du plan qui passe par les points de coordonnées $(a~;~0~;~0)$, $(0~;~b~;~0)$ et $(0~;~0~;~c)$.\\
+\emph{Rép.} $\frac{x}{a}+\frac{y}{b}+\frac{z}{c}=1$ }
+
+\textbf{Interprétation géométrique --} Le produit mixte représente le volume du parallélépipède formé à partir d'un trièdre direct.  En effet, le volume d'un parallélépipède formé à partir de trois vecteurs $\overrightarrow{A}$, $\overrightarrow{B}$ et $\overrightarrow{C}$ orienté selon la règle de la main droite vaut 
+\[
+	\mathcal{V}=\text{base}\times \text{hauteur}=\|\overrightarrow{A}\wedge \overrightarrow{B}\|\times \|C\|\cos\beta=(\overrightarrow{A}\wedge \overrightarrow{B})\cdot \overrightarrow{C}=[\overrightarrow{A},\overrightarrow{B},\overrightarrow{C}]
+\]
+\begin{marginfigure}[*-8]
+\centering
+\begin{tikzpicture} [scale=1,x={(-0.353cm,-0.353cm)}, y={(1cm,0cm)}, z={(0cm,1cm)},font=\footnotesize]
+\coordinate (O) at (0, 0, 0);
+\coordinate (A) at (1,1,0);
+\coordinate (B) at (3.5,2.5,0);
+\coordinate (C) at (3.5,4.5,0);
+\coordinate (D) at (1,3,0);
+\coordinate (E) at (1,2,0);
+\coordinate (T) at (1.67,1,2); 
+% parallélépipède
+\fill[monOrange](A)--(B)--(C)--(D);
+\draw[gray,dashed](B)--(C)--(D);
+\draw[gray,dashed] ($(A)+(T)$)--($(B)+(T)$)--($(C)+(T)$)--($(D)+(T)$)--cycle;
+\draw[gray,dashed] (B)--($(B)+(T)$);
+\draw[gray,dashed] (C)--($(C)+(T)$);
+\draw[gray,dashed] (D)--($(D)+(T)$);
+\fill[monOrange,opacity=.5] ($(A)+(T)$)--($(B)+(T)$)--($(C)+(T)$)--($(D)+(T)$);
+% hauteur
+\draw[thin]($(A)+(T)$)--++(0,0,-2)node[midway,right]{$h$};
+\fill[black,shift={(A)}](1.67,1,0)--++($.1*(B)-.1*(A)$)--++(0,0,.2)--++($.1*(A)-.1*(B)$)--cycle;
+% angle
+\draw ($(A)+.25*(T)$)to[bend right](1,1,.5);
+\draw ($(A)+.25*(T)$) node[above=5pt]{$\beta$};
+% vecteurs
+\draw[force] (A)--(B)node[midway,left]{$\overrightarrow{A}$};
+\draw[force] (A)--(D)node[right]{$\overrightarrow{B}$};
+\draw[force] (A)--++(T)node[above]{$\overrightarrow{C}$};
+\draw[vecteur] (A)--++(0,0,2)node[above]{$\overrightarrow{A}\wedge \overrightarrow{B}$};
+\end{tikzpicture} 
+\caption{Interprétation géométrique du produit mixte.}
+\labfig{interpretation_geometrique_du_produit_mixte}
+\end{marginfigure}
+
+% subsection produit_mixte (end)
+\subsection{Vecteurs polaires - Vecteurs axiaux}[Vecteurs axiaux] % (fold)
+En physique certaines grandeurs vectorielles dépendent de l'orientation de l'espace. On décide d'appeler :
+\begin{itemize}
+	\item \textbf{vecteur polaire} toute grandeur vectorielle indépendante de l'orientation de l'espace ;
+	\item \textbf{vecteur axial}, ou \textbf{pseudovecteur}, toute grandeur vectorielle qui dépend de l'orientation de l'espace ; 
+\end{itemize}
+Cette distinction revêt une importance en physique, car deux grandeurs vectorielles que l'on ajoute, en plus d'être de même dimension, \textbf{doivent avoir le même caractère polaire ou axial}. 
+
+Pour distinguer ces vecteurs il suffit de se demander comment se transforme un vecteur après une opération de symétrie par rapport à un plan : 
+\begin{itemize}
+	\item si le vecteur se transforme comme dans un miroir, il est polaire ;
+	\item sinon, il est axial.
+\end{itemize}
+
+Pour illustrer notre propos, imaginons un vecteur géométrique $\overrightarrow{v}$ formé par le bipoint (A,B). Transformons l'espace par une «opération miroir». L'espace orienté à droite se transforme en un espace orienté à gauche. A et B se transforme en A' et B'. Ces derniers ayant les mêmes coordonnées dans la base image ($\overrightarrow{u_x}{}'~;~\overrightarrow{u_y}{}'~;~\overrightarrow{u_z}{}'$), le vecteurs $\overrightarrow{v}'$ aura aussi les mêmes coordonnées dans la base image. En d'autres termes, comme on peut le voir sur la \reffig{transformation_d_un_vecteur_polaire}, $\overrightarrow{v}$ se transforme comme dans un miroir : il s'agit d'un vecteur polaire. 
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture} [scale=1,x={(0.1353cm,-0.1353cm)}, y={(1cm,0cm)}, z={(0cm,1cm)},font=\footnotesize]
+\coordinate (O) at (0, 0, 0);
+\coordinate (A) at (1,1,0);
+\coordinate (B) at (3,2,2);
+\coordinate (OO) at (0,8, 0);
+\coordinate (AA) at (1,7,0);
+\coordinate (BB) at (3,6,2);
+% plan de symétrie
+\draw[monOrange,fill=monOrange!50!white,opacity=.5](4,4,-2)--++(0,0,4)--++(-8,0,0)--++(0,0,-4)--cycle;
+\draw[white,thin] (0,4,-2) -- +(0,0,4) ;
+\draw[white,thin] (4,4,0) -- +(-8,0,0) ;
+%axes et vecteurs unitaires  et définition de x,y,z
+\draw[gray,thin] (O) -- +(3, 0,   0) ;
+\draw[gray,thin] (O) -- +(0, 4, 0) ;
+\draw[gray,thin] (O) -- +(0,  0, 2) ;
+\draw[gray,thin] (OO) -- +(3, 0,   0) ;
+\draw[gray,thin] (OO) -- +(0, - 3.4, 0) ;
+\draw[gray,thin] (OO) -- +(0,  0, 2) ;
+\draw[vecteur] (O)-- ++(1,0,0)node[left=5pt]{$\overrightarrow{{u}_{x}}$};
+\draw[vecteur] (O)-- ++(0,1,0)node[midway,above]{$\overrightarrow{{u}_{y}}$};
+\draw[vecteur] (O)-- ++(0,0,1)node[midway,left]{$\overrightarrow{{u}_{z}}$};
+\draw[vecteur] (OO)-- ++(1,0,0)node[midway,right=5pt]{$\overrightarrow{u_x}{}'$};
+\draw[vecteur] (OO)-- ++(0,-1,0)node[midway,above]{$\overrightarrow{u_y}{}'$};
+\draw[vecteur] (OO)-- ++(0,0,1)node[midway,right]{$\overrightarrow{u_z}{}'$};
+% vecteurs
+\draw[force] (A)node{•}node[below=2pt]{A}--(B)node{•}node[above=2pt]{B}node[midway,left]{$\overrightarrow{v}$};
+\draw[force] (AA)node{•}node[below=2pt]{A'}--(BB)node{•}node[above=2pt]{B'}node[midway,right]{$\overrightarrow{v}'$};
+% legende
+\draw (4,-1.5,-1)node[right]{Espace orienté à droite};
+\draw (4,9,-1)node[left]{Espace orienté à gauche};
+\end{tikzpicture} 
+\caption{Transformation d'un vecteur polaire.}
+\labfig{transformation_d_un_vecteur_polaire}
+\end{figure}
+
+Tous les vecteurs géométriques construits sur des bipoints sont polaires. Tel est le cas du vecteur déplacement ($\overrightarrow{\mathrm{M_1M_2}}$) rencontré en mécanique, et par conséquent des vecteurs vitesse et accélération puisque la durée est indépendante de l'orientation de l'espace. En vertu du principe fondamental de la dynamique ($\overrightarrow{f}=m \overrightarrow{a}$), il découle que le vecteur force est un vecteur polaire, comme le champ de gravitation ($\overrightarrow{f}=m \overrightarrow{g}$) et le champ électrique $(\overrightarrow{f}=q \overrightarrow{E}$)\marginnote{la masse et la charge électrique sont bien sûr indépendantes de l'orientation de l'espace.}.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture} [scale=1,x={(0.1353cm,-0.1353cm)}, y={(1cm,0cm)}, z={(0cm,1cm)},font=\footnotesize]
+	\tikzset{axial/.style={->,ultra thick,rounded corners=4pt,color=monOrange,smooth,line cap=round}}
+\coordinate (O) at (0, 0, 0);
+\coordinate (OO) at (0,8, 0);
+% plan de symétrie
+\draw[monOrange,fill=monOrange!50!white,opacity=.5](4,4,-2)--++(0,0,4)--++(-8,0,0)--++(0,0,-4)--cycle;
+\draw[white,thin] (0,4,-2) -- +(0,0,4) ;
+\draw[white,thin] (4,4,0) -- +(-8,0,0) ;
+% vecteurs
+\draw[gray,thin] (O) -- +(0, 4, 0) ;
+\draw[gray,thin] (OO) -- +(0, - 3.4, 0) ;
+\draw[axial] (O)-- ++(0,0,1)node[above]{$\overrightarrow{v}\wedge \overrightarrow{w}$};
+\draw[force] (O)-- ++(3,0,0)node[left=5pt]{$\overrightarrow{v}$};
+\draw[force] (O)-- ++(0,1,0)node[midway,above]{$\overrightarrow{w}$};
+\draw[axial] (OO)-- ++(0,0,-1)node[below]{$\overrightarrow{v}'\wedge \overrightarrow{w}'$};
+\draw[force] (OO)-- ++(3,0,0)node[midway,right=5pt]{$\overrightarrow{v}'$};
+\draw[force] (OO)-- ++(0,-1,0)node[midway,above]{$\overrightarrow{w}'$};
+% legende
+\draw (4,-1.5,-1.5)node[right]{Espace orienté à droite};
+\draw (4,9,-1.5)node[left]{Espace orienté à gauche};
+\end{tikzpicture} 
+\caption{Transformation d'un produit vectoriel de deux vecteurs polaires.}
+\labfig{transformation_d_un_produit_vectoriel_de_deux_vecteurs_polaires}
+\end{figure}
+
+Imaginons maintenant deux vecteurs polaires $\overrightarrow{v}$ et $\overrightarrow{w}$ qui se transforment donc comme dans un miroir lorsque l'on change l'orientation de l'espace. Que peut-on dire du vecteur $\overrightarrow{v}\wedge \overrightarrow{w}$ ? On constate sur la \reffig{transformation_d_un_produit_vectoriel_de_deux_vecteurs_polaires} que ce dernier ne se transforme pas comme dans un miroir mais présente une orientation opposée à celle attendue. Il s'agit d'un vecteur axial. On peut aisément vérifier que 
+\[
+	\begin{array}{rcl}
+		\overrightarrow{\text{polaire}}\wedge \overrightarrow{\text{polaire}}&=&\overrightarrow{\text{axial}}\\
+		\overrightarrow{\text{polaire}}\wedge \overrightarrow{\text{axial}}&=&\overrightarrow{\text{polaire}}\\
+		\overrightarrow{\text{axial}}\wedge \overrightarrow{\text{axial}}&=&\overrightarrow{\text{axial}}
+	\end{array}
+\] 
+
+Le moment d'une force \sidenote[][*-1]{$\mathcal{M}_\text{O}=\overrightarrow{\text{OM}}\wedge \overrightarrow{f}$}, le moment cinétique\sidenote{$\mathcal{L}_\text{O}=\overrightarrow{\text{OM}}\wedge m\overrightarrow{v}$}, le champ magnétique\sidenote[][*0]{La force électromagnétique s'écrit $\overrightarrow{f}=q \overrightarrow{E}+q \overrightarrow{v}\wedge \overrightarrow{B}$} sont des exemples de grandeurs physiques axiales. 
+
+\exercice{Sur Terre, le mouvement des masses nuageuses s'explique par l'action de la force de Coriolis donnée par la formule 
+\[
+	\overrightarrow{f}_\text{Coriolis}=-2m \overrightarrow{\Omega}\wedge \overrightarrow{v}
+\]
+où $m$ est la masse d'une portion d'atmosphère, $\overrightarrow{v}$ sa vitesse et $\overrightarrow{\Omega}$ le vecteur rotation de la Terre. Le vecteur rotation est-il polaire ou axial ?\\
+\emph{Rép.} Axial.}
+
+% subsection vecteurs_vrais_et_pseudo_vecteurs (end)
+
+% section produit_vectoriel (end)
+
+
+
+
+
+
+
+
+
+
+
+
+
+

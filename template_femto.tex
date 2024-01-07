@@ -1,0 +1,367 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Template latex pour les cours de physique sur femto-physique.fr
+% J. ROUSSEL 
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%----------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------
+\documentclass[
+	a4paper, % Page size
+	fontsize=10pt, % Base font size
+	twoside=true, % Use different layouts for even and odd pages (in particular, if twoside=true, the margin column will be always on the outside)
+	%open=any, % If twoside=true, uncomment this to force new chapters to start on any page, not only on right (odd) pages
+	%chapterentrydots=true, % Uncomment to output dots from the chapter name to the page number in the table of contents
+	numbers=noenddot, % Comment to output dots after chapter numbers; the most common values for this option are: enddot, noenddot and auto (see the KOMAScript documentation for an in-depth explanation)
+]{kaobook}
+% Choose the language
+\ifxetexorluatex
+	\usepackage{polyglossia}
+	\setmainlanguage{french}
+\else
+	%\usepackage[english,french]{babel}
+	\usepackage[french]{babel} % Load characters and hyphenation
+\fi
+\usepackage{csquotes}
+
+
+
+% Load packages for testing
+% \usepackage{blindtext}
+% \usepackage{showframe} % Uncomment to show boxes around the text area, margin, header and footer
+% \usepackage{showlabels} % Uncomment to output the content of \label commands to the document where they are used
+
+% Load the bibliography package
+\usepackage{kaobiblio}
+\addbibresource{refOMP.bib}
+
+% Load mathematical packages for theorems and related environments
+\usepackage[framed=true]{kaotheorems}
+
+% Load the package for hyperreferences
+\usepackage{kaorefs}
+
+% \makeindex[columns=3, title=Alphabetical Index, intoc] % Make LaTeX produce the files required to compile the index
+% \makeglossaries % Make LaTeX produce the files required to compile the glossary
+% \input{glossary.tex} % Include the glossary definitions
+% \setlength{\nomitemsep}{-\parsep}.
+\makenomenclature % Make LaTeX produce the files required to compile the nomenclature
+%% This will add the subgroups
+%----------------------------------------------
+% \usepackage[separate-uncertainty=true,alsoload=synchem]{siunitx}
+\usepackage[uncertainty-mode = separate]{siunitx}
+\sisetup{locale = FR,group-digits = all} 
+\DeclareSIUnit\mmHg{mmHg}
+\DeclareSIUnit\bar{bar}
+\DeclareSIUnit\torr{torr}
+\DeclareSIUnit[quantity-product = {}] \degreeF{\text{\textdegree}F}
+
+%----------------------------------------------
+%% This will add the units
+%----------------------------------------------
+\newcommand{\nomunit}[1]{%
+\renewcommand{\nomentryend}{\hspace*{\fill}#1}}
+%----------------------------------------------
+
+% Reset sidenote counter at chapters
+% \counterwithin*{sidenote}{chapter}
+
+
+
+% •••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••
+% 								| STYLES TIKZ |
+% •••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••••
+\tikzset{>=stealth,inner sep=1pt, outer sep=2pt}			
+\tikzset{
+	vecteur/.style={->,thick,color=black,smooth},
+	systeme/.style={ellipse,inner sep=5pt,outer sep=5pt,fill=gray,draw,dashed,text={white}},
+	echange/.style={color=cyan,thick,->,text={black}},
+	gaz/.style={fill=SkyBlue!10,inner sep=1pt},
+	liq/.style={top color=lightgray!50,bottom color=gray,text={white}},
+	force/.style={->,>=latex,monBleu,nodes={monBleu},ultra thick,rounded corners=4pt,smooth,line cap=round},	
+	source/.style={rectangle,minimum height=10mm,fill=blue!25,inner sep=5pt,text=blue},
+	transfert/.style={decoration={markings,mark=at position 5mm with {\arrow[]{>}}},postaction=decorate},
+	bloc/.style={rounded corners=4pt,color=white,ball color=lightgray,smooth},
+	verre/.style={draw=SkyBlue,fill=SkyBlue!30},
+	bob/.style={decoration={coil,aspect=0.5,segment length=2mm,amplitude=2mm}},	
+	rayon/.style={draw=red!66,thick,line join=round}
+	}	
+
+
+
+%----------------------------------------------------------------------------------------
+\begin{document}
+\renewcommand{\labelitemi}{\tiny$\blacktriangleright$}
+\renewcommand{\labelitemii}{\textbullet}
+
+%----------------------------------------------------------------------------------------
+%	BOOK INFORMATION
+%----------------------------------------------------------------------------------------
+\titlehead{
+\begin{tikzpicture}[remember picture,overlay]
+%%%%%%%%%%%%%%%%%%%% Background %%%%%%%%%%%%%%%%%%%%%%%%
+\fill[monOrange] (current page.south west) rectangle (current page.north east);
+%%%%%%%%%%%%%%%%%%%% Background Polygon %%%%%%%%%%%%%%%%%%%%
+\foreach \i in {2.5,...,22}{
+    \node[rounded corners,monOrange!60,draw,regular polygon,regular polygon sides=6, minimum size=\i cm,ultra thick] at ($(current page.west)+(2.5,-5)$) {} ;}
+\foreach \i in {0.5,...,22}{
+	\node[rounded corners,monOrange!60,draw,regular polygon,regular polygon sides=6, minimum size=\i cm,ultra thick] at ($(current page.north west)+(2.5,0)$) {} ;}
+\foreach \i in {0.5,...,22}{
+	\node[rounded corners,monOrange!90,draw,regular polygon,regular polygon sides=6, minimum size=\i cm,ultra thick] at ($(current page.north east)+(0,-9.5)$) {} ;}
+\foreach \i in {21,...,6}{
+	\node[monOrange!85,rounded corners,draw,regular polygon,regular polygon sides=6, minimum size=\i cm,ultra thick] at ($(current page.south east)+(-0.2,-0.45)$) {} ;}
+%%%%%%%%%%%%%%%%%%%% Title of the Report %%%%%%%%%%%%%%%%%%%% 
+\node[left,white,minimum width=0.625*\paperwidth,minimum height=3cm, rounded corners] at ($(current page.north east)+(0,-9.5)$){{\fontsize{25}{30} \selectfont \bfseries COURS DE PHYSIQUE}};
+%%%%%%%%%%%%%%%%%%%% Subtitle %%%%%%%%%%%%%%%%%%%% 
+\node[left,white,minimum width=0.625*\paperwidth,minimum height=2cm, rounded corners] at ($(current page.north east)+(0,-11)$){{\huge \textit{TEMPLATE LATEX}}};
+%%%%%%%%%%%%%%%%%%%% Author Name %%%%%%%%%%%%%%%%%%%% 
+\node[left,black!85,minimum width=0.625*\paperwidth,minimum height=2cm, rounded corners] at ($(current page.north east)+(0,-13)$){{\Large \textsc{Jimmy Roussel}}};
+%%%%%%%%%%%%%%%%%%%% Year %%%%%%%%%%%%%%%%%%%% 
+\node[rounded corners,text=monOrange,regular polygon,regular polygon sides=6, minimum size=2.5 cm,inner sep=0,ultra thick,fill=monOrange!60] at ($(current page.west)+(2.5,-5)$) {\LARGE \bfseries 2023};
+\node[fill=white,ultra thick,draw=monOrange!60,text=monBleu,rounded corners,inner sep=4pt] at ($(current page.south)+(0,2)$) {\bfseries \href{https://femto-physique.fr/omp/}{femto-physique.fr/omp}} ;
+\end{tikzpicture}
+}
+% \subject{}
+\title[Cours sur les outils et méthodes scientifiques -- \href{https://femto-physique.fr}{femto-physique.fr}]{}
+
+% \subtitle{}
+\author[\textsc{Jimmy Roussel}, professeur agrégé à l'Ecole Nationale Supérieure de Chimie de Rennes]{}
+\date{}
+
+%----------------------------------------------------------------------------------------
+% START of the pre-document content, uses roman numerals
+% ---------------------------------------------------------------------------------------
+\frontmatter 
+%----------------------------------------------------------------------------------------
+%	COPYRIGHT PAGE
+%----------------------------------------------------------------------------------------
+\makeatletter
+\uppertitleback{\@plaintitle\\ \@plainauthor} % Header
+\lowertitleback{
+\textbf{Copyright} \copyright\ 2023 Jimmy Roussel\\
+\ccbync\ Ce document est sous licence \emph{Creative Commons} «Attribution - Pas d’Utilisation Commerciale 4.0 International (CC BY-NC 4.0)».
+
+Pour plus d'informations: \href{https://creativecommons.org/licenses/by-nc/4.0/}{creativecommons.org/licenses/by-nc/4.0/}
+\medskip
+
+Ce document est réalisé avec l'aide de \href{https://sourceforge.net/projects/koma-script/}{\KOMAScript} et  \href{ttps://www.latex-project.org/}{\LaTeX} en utilisant la classe \href{https://github.com/fmarotta/kaobook/}{kaobook}.
+\medskip
+
+\textbf{1\iere édition --} Janv. 2011
+
+\textbf{Version en ligne --} \href{https://femto-physique.fr/omp/}{femto-physique.fr/omp}
+}
+\makeatother
+
+%----------------------------------------------------------------------------------------
+%	OUTPUT TITLE PAGE AND PREVIOUS
+%----------------------------------------------------------------------------------------
+% Note that \maketitle outputs the pages before here
+\maketitle
+
+%----------------------------------------------------------------------------------------
+%	PREFACE
+%----------------------------------------------------------------------------------------
+
+\input{chapters/preface.tex}
+\index{Préface}
+
+%----------------------------------------------------------------------------------------
+%	TABLE OF CONTENTS & LIST OF FIGURES/TABLES
+%----------------------------------------------------------------------------------------
+
+\begingroup % Local scope for the following commands
+
+% Define the style for the TOC, LOF, and LOT
+%\setstretch{1} % Uncomment to modify line spacing in the ToC
+%\hypersetup{linkcolor=blue} % Uncomment to set the colour of links in the ToC
+\setlength{\textheight}{230\hscale} % Manually adjust the height of the ToC pages
+
+% Turn on compatibility mode for the etoc package
+\etocstandarddisplaystyle % "toc display" as if etoc was not loaded
+\etocstandardlines % "toc lines" as if etoc was not loaded
+
+\tableofcontents % Output the table of contents
+
+\listoffigures % Output the list of figures
+
+% Comment both of the following lines to have the LOF and the LOT on different pages
+\let\cleardoublepage\bigskip
+\let\clearpage\bigskip
+
+\listoftables % Output the list of tables
+
+\endgroup
+%----------------------------------------------------------------------------------------
+%	MAIN BODY
+%----------------------------------------------------------------------------------------
+\mainmatter % Denotes the start of the main document content, resets page numbering and uses arabic numbers
+\setchapterstyle{kao} % Choose the default chapter heading style
+
+% -------- Outils d'analyse -------
+\pagelayout{wide} % No margins
+\addpart{Autour de la mesure}
+\pagelayout{margin} % Restore margins
+
+\input{chapters/unites_dimensions}
+\input{chapters/mesurer}
+
+
+\backmatter % Denotes the end of the main document content
+\setchapterstyle{plain} % Output plain chapters from this point onwards
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+% The bibliography needs to be compiled with biber using your LaTeX editor, or on the command line with 'biber main' from the template directory
+\printbibliography[heading=bibintoc, title=Pour en savoir plus] % Add the bibliography heading to the ToC, set the title of the bibliography and output the bibliography note
+\nocite{Moreau:1975,Giacomo:1995,Taylor:1999,Bally:2010}
+
+%----------------------------------------------------------------------------------------
+%	NOTATIONS & GRANDEURS
+%----------------------------------------------------------------------------------------
+% The nomenclature needs to be compiled on the command line with 'makeindex main.nlo -s nomencl.ist -o main.nls' from the template directory
+\nomenclature[A, 01]{\(h\)}{\href{https://physics.nist.gov/cgi-bin/cuu/Value?h}
+{Constante de Planck}
+\nomunit{\SI[group-digits=true]{6.62607015e-34}{\joule\per\hertz}}}
+\nomenclature[A, 02]{\(c\)}{\href{https://physics.nist.gov/cgi-bin/cuu/Value?c}
+{Vitesse de la lumière	dans le vide}
+\nomunit{\SI[group-digits=true]{299792458}{\meter\per\second}}}
+\nomenclature[A, 03]{\(\Delta\nu_\textsf{Cs}\)}{\href{https://physics.nist.gov/cgi-bin/cuu/Value?nucs}
+{Fréquence hyperfine du \(^{133}\textsf{Cs}\)}
+\nomunit{\SI[group-digits=true]{9192631770}{\hertz}}}
+\nomenclature[A, 04]{\(e\)}{\href{https://physics.nist.gov/cgi-bin/cuu/Value?e}
+{Charge élémentaire}
+\nomunit{\SI[group-digits=true]{1,602176634e-9}{\coulomb}}}
+\nomenclature[A, 05]{\(k_\text{B}\)}{\href{https://physics.nist.gov/cgi-bin/cuu/Value?k}
+{Constante de Boltzmann}
+\nomunit{\SI[group-digits=true]{1,380649e-23}{\joule\per\kelvin}}}
+\nomenclature[A, 07]{\(R=k_\text{B}N_\text{A}\)}{\href{https://physics.nist.gov/cgi-bin/cuu/Value?r}
+{Constante des gaz parfaits}
+\nomunit{\SI[group-digits=true]{8,314462618}{\joule\per\kelvin\per\mol}}}
+\nomenclature[A, 06]{\(N_\text{A}\)}{\href{https://physics.nist.gov/cgi-bin/cuu/Value?na}
+{Nombre d'Avogadro}
+\nomunit{\SI[group-digits=true]{6,02214076e23}{\per\mol}}}
+\nomenclature[A, 08]{\(K_\text{cd}\)}{\href{https://physics.nist.gov/cgi-bin/cuu/Value?kcd}
+{Efficacité lumineuse}
+\nomunit{\SI[group-digits=true]{683}{\lumen\per\watt}}}
+% autres constantes
+\nomenclature[B, 01]{\(G\)}{\href{https://physics.nist.gov/cgi-bin/cuu/Value?bg}
+{Constante gravitationnelle} 
+\nomunit{\SI[group-digits=false]{6.67430e-11}{\meter\cubed\per\kilogram\per\second\squared}}}
+\nomenclature[B, 02]{\(\epsilon_0\)}{\href{https://physics.nist.gov/cgi-bin/cuu/Value?ep0}
+{Permittivité diélectrique du vide} 
+\nomunit{\SI[group-digits=false]{8.85418781e-12}{\farad\per\meter}}}
+\nomenclature[B, 03]{\(\mu_0\)}{\href{https://physics.nist.gov/cgi-bin/cuu/Value?mu0}
+{Perméabilité magnétique du vide} 
+\nomunit{\SI[group-digits=false]{1.256637062e-6}{\henry\per\meter}}}
+\nomenclature[B, 04]{\(m_\text{e}\)}{\href{https://physics.nist.gov/cgi-bin/cuu/Value?me}
+{Masse de l'électron au repos} 
+\nomunit{\SI[group-digits=false]{9.10938370e-31}{\kilogram}}}
+\nomenclature[B, 05]{\(m_\text{p}\)}{\href{https://physics.nist.gov/cgi-bin/cuu/Value?mp}
+{Masse du proton au repos} 
+\nomunit{\SI[group-digits=false]{1.672621923e-27}{\kilogram}}}
+\nomenclature[B, 06]{\(m_\text{n}\)}{\href{https://physics.nist.gov/cgi-bin/cuu/Value?mn}
+{Masse du neutron au repos} 
+\nomunit{\SI[group-digits=false]{1.674927498e-27}{\kilogram}}}
+
+% grandeurs physiques
+\nomenclature[C]{$m$}{Masse (kg)}
+\nomenclature[C]{$\rho$}{Masse volumique ($\mathrm{kg.m^{-3}}$)}
+\nomenclature[C]{$q$}{Charge électrique (C)}
+\nomenclature[C]{$\mathcal{A}$}{Aire ($\mathrm{m^{2}}$)}
+\nomenclature[C]{$V$}{Volume ($\mathrm{m^{3}}$)}
+\nomenclature[C]{$t$}{Temps (s)}
+\nomenclature[C]{$\nu$}{Fréquence (Hz)}
+\nomenclature[C]{$T$}{Période (s)}
+\nomenclature[C]{$v$}{Vitesse ($\mathrm{m.s^{-1}}$)}
+\nomenclature[C]{$\omega$}{Vitesse angulaire, pulsation ($\mathrm{rad.s^{-1}}$)}
+\nomenclature[C]{$a$}{Accélération ($\mathrm{m.s^{-2}}$)}
+\nomenclature[C]{$f$}{force (N)}
+\nomenclature[C]{$P$}{poids (N)}
+% symboles math
+\nomenclature[D,01]{$\stackrel{\text{def}}=$}{Relation de définition}
+\nomenclature[D,02]{$\sim$}{Égal en ordre de grandeur}
+\nomenclature[D,03]{$A\gg B $}{$A$ très grand devant $B$}
+\nomenclature[D,04]{$A \ll B$}{$A$ très petit devant $B$}
+\nomenclature[D,05]{$\overline{f}$}{Moyenne d'ensemble}
+\nomenclature[D,06]{$\frac{\mathrm{d} f}{\mathrm{d} t}$}{Dérivée première par rapport au temps}
+\nomenclature[D,07]{$\frac{\mathrm{d}^n f}{\mathrm{d} t^n}$}{Dérivée n-ième par rapport au temps}
+\nomenclature[D,08]{$\left(\frac{\partial S}{\partial V}\right)_{U,X}$}{Dérivée partielle de $S$ par rapport $V$, les variables $U$ et $X$ étant maintenues constantes}
+\nomenclature[D,09]{$\int_\text{C} \overrightarrow{A}(\text{M})\cdot \mathrm{d}\overrightarrow{\ell}$}{Circulation de  $\overrightarrow{A}$ le long du circuit C}
+\nomenclature[D,10]{$\iint_\text{S}\overrightarrow{A}(\text{M})\cdot \overrightarrow{n}\, \mathrm{d}S$}{Flux d'un champ vectoriel $\overrightarrow{A}$}
+\nomenclature[D,11]{$\iiint_\text{V} f(\text{M})\, \mathrm{d}\tau$}{Intégrale de volume}
+
+\renewcommand{\nomname}{Grandeurs physiques et symboles mathématiques} % Rename the default 'Nomenclature'
+\setlength{\nomitemsep}{2pt}
+\newlength{\nomgroupstartsep}
+\setlength{\nomgroupstartsep}{16pt}
+\newcommand{\nomenclheader}[1]{\item[\hspace*{-\itemindent}\bfseries#1]}
+% \renewcommand\nomgroup[1]{%
+%   \item[\bfseries
+%   \ifstrequal{#1}{A}{Constantes physiques définies par le SI (valeurs exactes)}{%
+%   \ifstrequal{#1}{B}{Autres constantes physiques}{%
+%   \ifstrequal{#1}{C}{Grandeurs Physiques}{%
+%   \ifstrequal{#1}{D}{Symboles mathématiques}{}}}}%
+% ]}
+\renewcommand\nomgroup[1]{%
+ \itemsep\nomgroupstartsep%
+  \IfStrEqCase{#1}{%
+   {A}{\nomenclheader{Constantes physiques définies par le SI (valeurs exactes)}}% 
+   {B}{\nomenclheader{Autres constantes physiques}}%
+   {C}{\nomenclheader{Grandeurs physiques}}%
+   {D}{\nomenclheader{Symboles mathématiques}}%
+  }%
+  \itemsep\nomitemsep% restore spacing
+}
+\printnomenclature[3cm] % Output the nomenclature
+
+%----------------------------------------------------------------------------------------
+%	GLOSSARY
+%----------------------------------------------------------------------------------------
+
+% The glossary needs to be compiled on the command line with 'makeglossaries main' from the template directory
+
+\setglossarystyle{listgroup} % Set the style of the glossary (see https://en.wikibooks.org/wiki/LaTeX/Glossary for a reference)
+\printglossary[title=Special Terms, toctitle=List of Terms] % Output the glossary, 'title' is the chapter heading for the glossary, toctitle is the table of contents heading
+
+%----------------------------------------------------------------------------------------
+%	INDEX
+%----------------------------------------------------------------------------------------
+% The index needs to be compiled on the command line with 'makeindex main' from the template directory
+% \printindex % Output the index
+
+%----------------------------------------------------------------------------------------
+%	BACK COVER
+%----------------------------------------------------------------------------------------
+% If you have a PDF/image file that you want to use as a back cover, uncomment the following lines
+% \clearpage
+\thispagestyle{empty}
+\null%
+%----------------------------------------------------------------------------------------
+%	BACK COVER
+%----------------------------------------------------------------------------------------
+% If you have a PDF/image file that you want to use as a back cover, uncomment the following lines
+\clearpage
+\thispagestyle{empty}
+\null%
+\begin{tikzpicture}[remember picture,overlay]
+%%%%%%%%%%%%%%%%%%%% THEME %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\theme{omp}
+%%%%%%%%%%%%%%%%%%%% Background %%%%%%%%%%%%%%%%%%%%%%%%
+\fill[monOrange] (current page.south west) rectangle (current page.north east);
+%%%%%%%%%%%%%%%%%%%% Background Polygon %%%%%%%%%%%%%%%%%%%%
+\foreach \i in {2.5,...,21}{
+    \node[rounded corners,monOrange!60,draw,regular polygon,regular polygon sides=6, minimum size=\i cm,ultra thick] at ($(current page.west)+(2.5,-5)$) {} ;}
+\foreach \i in {0.5,...,21}{
+	\node[rounded corners,monOrange!60,draw,regular polygon,regular polygon sides=6, minimum size=\i cm,ultra thick] at ($(current page.north west)+(2.5,0)$) {} ;}
+\foreach \i in {0.5,...,21}{
+	\node[rounded corners,monOrange!90,draw,regular polygon,regular polygon sides=6, minimum size=\i cm,ultra thick] at ($(current page.north east)+(0,-9.5)$) {} ;}
+\foreach \i in {21,...,6}{
+	\node[monOrange!85,rounded corners,draw,regular polygon,regular polygon sides=6, minimum size=\i cm,ultra thick] at ($(current page.south east)+(-0.2,-0.45)$) {} ;}
+\node[rounded corners,text=monOrange,regular polygon,regular polygon sides=6, minimum size=2.5 cm,inner sep=0,ultra thick,fill=monOrange!60] at ($(current page.west)+(2.5,-5)$) {\LARGE \bfseries 2023};
+\node[fill=white,ultra thick,draw=monOrange!60,text=monBleu,rounded corners,inner sep=4pt] at ($(current page.south)+(0,2)$) {\bfseries \href{https://femto-physique.fr/\theme/}{femto-physique.fr/\theme}} ;
+\end{tikzpicture}
+%----------------------------------------------------------------------------------------
+
+\end{document}

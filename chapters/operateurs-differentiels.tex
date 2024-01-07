@@ -1,0 +1,338 @@
+% !TEX encoding = UTF-8 Unicode
+\setchapterstyle{kao}
+\setchapterpreamble[u]{\margintoc} 
+\chapter{OPÉRATEURS DIFFÉRENTIELS}
+\labch{operateurs_differentiels}
+
+Complément de cours sur ce qu'il faut savoir à propos des opérateurs différentiels utilisés en physique.
+
+\begin{center}
+\textbf{Version en ligne}
+
+\url{https://femto-physique.fr/omp/operateurs-differentiels.php}
+\end{center}
+
+
+% ------ section I ------
+\section{L'opérateur gradient}
+\subsection{Définition}
+
+L'opérateur gradient est un \emph{opérateur différentiel} qui s'applique à un \textbf{champ scalaire} (fonction scalaire dépendant de l'espace et du temps) et le transforme en un \textbf{champ vectoriel} (vecteur dépendant de l'espace et du temps). Il se lit « gradient » ou « nabla » et se note : 
+\[
+	\overrightarrow{\text{grad}}f(\text{M},t)\quad\text{ou}\quad\overrightarrow{\nabla}f(\text{M},t)
+\]
+Dans le système de cordonnées cartésiennes le gradient s'exprime ainsi: 
+% --- equation --- (fold)
+\begin{equation}
+\fcolorbox{filet}{fond}{\hspace{0.5em}
+\(\displaystyle 
+\overrightarrow{\text{grad}}f(x,y,z,t) = 
+\dfrac{\partial f(x,y,z,t)}{\partial x}\overrightarrow{u_{x}} + \dfrac{\partial f(x,y,z,t)}{\partial y}\overrightarrow{u_{y}} + \dfrac{\partial f(x,y,z,t)}{\partial z}\overrightarrow{u_{z}}
+\)\hspace{0.5em}}
+\hspace{0.5em}\heartsuit
+\end{equation}
+%--- equation --- (end)
+La \reftab{expressions_de_l_operateur_gradient_dans_differents_systemes_de_coordonnees}  donne les différentes expressions du gradient dans les systèmes de coordonnées utilisés couramment en physique.
+\begin{table}
+\centering
+\footnotesize
+\begin{tabular}{c|c|l}
+\toprule
+\textbf{Système}		&	$f(\text{M},t)$				& \textbf{Expression de} $\text{grad}f$					  \\[4mm]
+Cartésien											&	$f(x,y,z,t)$					& $\dfrac{\partial f}{\partial x}\overrightarrow{u_{x}} + \dfrac{\partial f}{\partial y}\overrightarrow{u_{y}} + \dfrac{\partial f}{\partial z}\overrightarrow{u_{z}}$ \\[4mm]										
+Cylindriques & $f(r,\theta,z,t)$  & $\dfrac{\partial f}{\partial r}\overrightarrow{u_{r}}+\dfrac{\partial f}{r\partial\theta}\overrightarrow{u_{\theta}}+\dfrac{\partial f}{\partial z}\overrightarrow{u_{z}}$\\[4mm]
+Sphériques   & $f(r,\theta,\varphi,t)$ & $\dfrac{\partial f}{\partial r}\overrightarrow{u_{r}}+\dfrac{\partial f}{rd\theta}\overrightarrow{u_{\theta}}+\dfrac{\partial f}{r\sin\theta d\varphi}\overrightarrow{u_{\varphi}}$\\
+\bottomrule
+\end{tabular}
+\caption{Expressions de l'opérateur gradient dans différents systèmes de coordonnées.}
+\labtab{expressions_de_l_operateur_gradient_dans_differents_systemes_de_coordonnees}
+\end{table}
+
+
+\exercice{Calculer le gradient des champs suivants : \(f(x,y,z)=\dfrac{1}{2}(x^{2}+y^{2}+z^{2})\) et \(g(r,\theta,\varphi)=-\frac{1}{r}\).\\[2mm]
+\emph{Rép.} \(\overrightarrow{\nabla}f=(x,y,z)=\overrightarrow{\text{OM}}\) et \(\overrightarrow{\nabla}g=\frac{1}{r^2}\overrightarrow{u_r}\).}
+\subsection{Propriétés}
+L'opérateur gradient est un  opérateur linéaire et vérifie donc 
+\[
+	\overrightarrow{\nabla}(\alpha f+\beta g)=\alpha \overrightarrow{\nabla}f+\beta\overrightarrow{\nabla}g
+	\quad\text{avec}\quad	(\alpha,\beta)\in\mathbb{R}^2
+\]
+Le gradient d'un produit de champs scalaires vaut 
+\[
+	\overrightarrow{\nabla}(f.g)=f\overrightarrow{\nabla}g+g\overrightarrow{\nabla}f	
+\]
+où $f$ et $g$ sont deux fonctions de l'espace et du temps.
+
+\textbf{Lien avec la différentielle --} On peut définir le gradient à partir de sa relation avec la différentielle. Soit M un point de l'espace et M' un point infiniment voisin, la différentielle $\text{d}f$ représente la variation du champ scalaire $f$ lorsque l'on se déplace de M à M' à $t$ fixé : 
+	\[
+	\text{d}f\stackrel{\text{def}}= f(\text{M'},t)-f(\text{M},t)=\overrightarrow{\nabla}f(\text{M},t)\cdot\overrightarrow{\text{d}\ell}
+	\quad\text{avec}\quad
+	\overrightarrow{\text{d}\ell}=\overrightarrow{\text{MM'}}	
+	\]
+En conséquence,
+\begin{itemize}
+\item Le vecteur $\overrightarrow{\nabla}f(\text{M},t)$ est perpendiculaire à la surface de niveau\sidenote{La surface de niveau de $f$ est l'ensemble des points M pour lesquels $f(M,t)$ conserve la même valeur à un instant $t$ fixé. En dimension $d=2$, cet ensemble donne une courbe de niveau.} de $f$ passant par M à l'instant $t$.
+\item Le vecteur gradient est orienté vers les valeurs croissantes de $f$ et sa norme  mesure le taux de variation spatiale dans la direction de plus grande pente 
+\[
+	\left\| \overrightarrow{\nabla}f\right\| =\dfrac{\text{d}f}{\text{d}\ell}
+\]
+\end{itemize}
+
+\exercice{Considérons le champ scalaire de l'espace bi-dimensionnel,  \(f(x,y)=x^2+y^2\). Représenter les courbes de niveau puis calculer \(\overrightarrow{\nabla}f\). Tracer quelques vecteurs gradients.\\[2mm]
+\emph{Rép.} Les courbes de niveau sont des cercles de centre O. On a \(\overrightarrow{\nabla}f=(2x,2y)=2\overrightarrow{\text{OM}}\). Les vecteur gradients sont effectivement perpendiculaires aux cercles.}
+
+
+
+% ------ section II ------
+
+\section{L'opérateur divergence}
+\subsection{Définition}
+L'opérateur divergence est un opérateur différentiel qui s'applique à un \textbf{champ vectoriel} et qui renvoie un \textbf{champ scalaire}. Il se lit « divergence » et se note : 
+	\[
+\text{div}\overrightarrow{A}(\text{M},t)\quad\text{ou}\quad\overrightarrow{\nabla}\cdot\overrightarrow{A}(\text{M},t)
+	\]
+Cette notation permet de retenir l'expression de la divergence en coordonnées cartésiennes : 
+% --- equation --- (fold)
+\begin{equation}
+\fcolorbox{filet}{fond}{\hspace{0.5em}
+\(\displaystyle 
+\text{div}\overrightarrow{A}(x,y,z,t)=
+\left(\begin{array}{c}
+\partial/\partial x\\
+\partial/\partial y\\
+\partial/\partial z
+\end{array}\right)
+\cdot
+\left(\begin{array}{c}
+A_{x}\\
+A_{y}\\
+A_{z}\\
+\end{array}\right) = \left.\frac{\partial A_x}{\partial x}\right|_{y,z}
++ \left.\frac{\partial A_y}{\partial y}\right|_{x,z}
++\left.\frac{\partial A_z}{\partial z}\right|_{x,y}
+\)\hspace{0.5em}}
+\hspace{0.5em}\heartsuit
+\end{equation}
+%--- equation --- (end)
+La \reftab{expressions_de_la_divergence_dans_differents_systemes_de_coordonnees} donne les différentes expressions de la divergence d'un champ vectoriel exprimé dans différents systèmes de coordonnées.
+\begin{table}[htbp]
+\centering
+\footnotesize
+\begin{tabular}{c|l}
+	\toprule
+	\textbf{Système}	& Expression de $\text{div}\overrightarrow{A}=\nabla\cdot\overrightarrow{A}$\\[4mm]
+	cartésien		& $ \left.\frac{\partial A_x}{\partial x}\right|_{y,z}
++ \left.\frac{\partial A_y}{\partial y}\right|_{x,z}
++\left.\frac{\partial A_z}{\partial z}\right|_{x,y}$\\[4mm]
+	cylindriques		& $\dfrac{\partial(r A_{r})}{r\partial r}+ \dfrac{\partial(A_{\theta})}{r\partial \theta} + \dfrac{\partial A_{z}}{\partial z}$\\[4mm]
+	sphériques			& $\dfrac{1}{r^{2}}\dfrac{\partial(r^{2}\,A_{r})}{\partial r} +  \dfrac{1}{r\sin\theta}\dfrac{\partial(\sin\theta\,A_{\theta})}{\partial \theta} + \dfrac{1}{r\sin\theta}\dfrac{\partial A_{\varphi}}{\partial \varphi}$ \\
+	\bottomrule
+\end{tabular}
+\caption{Expressions de la divergence dans différents systèmes de coordonnées.}
+\labtab{expressions_de_la_divergence_dans_differents_systemes_de_coordonnees}
+\end{table}
+
+\exercice{Considérons le champ vectoriel $\overrightarrow{A}(r,\theta,\varphi)=\dfrac{\overrightarrow{u_r}}{r^2}$. Calculer la divergence de ce champ en tout point M autre que O.\\[2mm]
+\emph{Rép.} On trouve \(\text{div}\overrightarrow{A}=0\). On dit que \(\overrightarrow{A}\) est un champ à flux conservatif (sauf en O).}
+\subsection{Propriétés}
+L'opérateur divergence est un  \textbf{opérateur linéaire} et vérifie donc 
+\[
+	\text{div}(\alpha \overrightarrow{A}+\beta \overrightarrow{B})=\alpha\,\text{div}\overrightarrow{A}+
+	\beta\,\text{div}\overrightarrow{B}
+	\quad\text{avec}\quad	(\alpha,\beta)\in\mathbb{R}^2
+\]
+La divergence d'un produit vaut
+\[
+	\text{div}(f.\overrightarrow{A}) = \overrightarrow{\nabla}\cdot(f\overrightarrow{A}) = f\overrightarrow{\nabla}\cdot\overrightarrow{A}+\overrightarrow{A}\cdot\overrightarrow{\nabla}f = f\text{div}\overrightarrow{A}+\overrightarrow{A}\cdot\overrightarrow{\text{grad}}f
+\]
+La divergence d'un champ est reliée au calcul du flux.
+\begin{kaobox}[frametitle=Théorème de Green-Ostrogradsky ou théorème de la divergence]
+Le flux d'un champ vectoriel $\overrightarrow{A}(\textrm{M})$ à travers une surface fermée $(S)$ est égal à l'intégrale sur le volume $V$ limité par $(S)$ de la divergence du champ vectoriel. 
+\[
+\iint_{\textrm{M}\in (S)}\overrightarrow{A}(\textrm{M})\cdot\overrightarrow{\textrm{d}S}^{\textrm{ext}}=
+\iiint_{\textrm{M}\in V}\text{div}\overrightarrow{A}(\textrm{M})\;\text{d}\tau
+\quad\textrm{avec}\quad
+\textrm{div}\overrightarrow{A}=\overrightarrow{\nabla}\cdot\overrightarrow{A}\]
+\end{kaobox} 
+
+\textbf{Sens physique --} La divergence prend un sens bien précis en mécanique des fluides. Considérons une portion de fluide en mouvement dans un fluide décrit par le champ de vitesse $\overrightarrow{v}(\text{M},t)$. Au cours du mouvement, le volume $\mathcal{V}$ de cette portion varie suite aux déformations engendrées par l'écoulement. La divergence de la vitesse est liée au  taux de dilatation de la portion fluide par la relation 
+\[
+	\text{div}\overrightarrow{v}=\frac{1}{\mathcal{V}}\frac{\text{D}\mathcal{V}}{\text{D}t}
+\]
+
+
+\section{L'opérateur rotationnel}
+\subsection{Définition}
+L'opérateur rotationnel est un opérateur différentiel qui transforme un \textbf{champ vectoriel} en un autre \textbf{champ vectoriel}. Il se lit « rotationnel » et se note 
+	\[
+	\overrightarrow{\text{rot}}\,\overrightarrow{A}(\text{M},t)
+	\quad\text{ou}\quad
+	\overrightarrow{\nabla}\wedge\overrightarrow{A}(\text{M},t)
+	\]
+Cette notation permet de retenir l'expression du rotationnel en coordonnées cartésiennes : 
+% --- equation --- (fold)
+\begin{equation}
+\fcolorbox{filet}{fond}{\hspace{0.5em}
+\(\displaystyle 
+\overrightarrow{\text{rot}}\,\overrightarrow{A}=
+\left(\begin{array}{c}
+\dfrac{\partial}{\partial x}\\[4mm]
+\dfrac{\partial}{\partial y}\\[4mm]
+\dfrac{\partial}{\partial z}
+\end{array}
+\right)\wedge\left(
+\begin{array}{c}
+	A_{x}\\[5mm]
+	A_{y}\\[5mm]
+	A_{z}\\[5mm]
+\end{array}
+\right)=\left(
+\begin{array}{c}
+	\dfrac{\partial A_{z}}{\partial y}-\dfrac{\partial A_{y}}{\partial z}\\[4mm]
+	\dfrac{\partial A_{x}}{\partial z}-\dfrac{\partial A_{z}}{dx}\\[4mm]
+	\dfrac{\partial A_{y}}{dx}-\dfrac{\partial A_{x}}{dy}
+	\end{array}\right)
+\)\hspace{0.5em}}
+\hspace{0.5em}\heartsuit
+\end{equation}
+%--- equation --- (end)
+La \reftab{expressions_du_rotationnel} donne les différentes expressions du rotationnel dans différents systèmes de coordonnées.
+
+\begin{table*}
+\centering
+\footnotesize
+\begin{tabular}{c|l}
+\toprule
+\textbf{Système} & $\overrightarrow{\text{rot}}\,\overrightarrow{A}=\overrightarrow{\nabla}\wedge\overrightarrow{A}$ \\
+cartésien & $\left(\dfrac{\partial A_{z}}{\partial y}-\dfrac{\partial A_{y}}{\partial z},\,
+\dfrac{\partial A_{x}}{\partial z}-\dfrac{\partial A_{z}}{\partial x},\,
+\dfrac{\partial A_{y}}{\partial x}-\dfrac{\partial A_{x}}{\partial y}\right)$\\[4mm]
+cylindrique & $\left(\dfrac{1}{r}\dfrac{\partial A_{z}}{\partial\theta}-\dfrac{\partial A_{\theta}}{\partial z},\,
+\dfrac{\partial A_{r}}{\partial z}-\dfrac{\partial A_{z}}{\partial r},\,
+\dfrac{1}{r}\dfrac{\partial(rA_{\theta})}{\partial r}-\dfrac{1}{r}\dfrac{\partial A_{r}}{\partial \theta}\right)$\\[4mm]
+sphérique & $\left(\dfrac{1}{r\sin\theta}\dfrac{\partial(\sin\theta A_{\varphi})}{\partial\theta} - \dfrac{1}{r\sin\theta}\dfrac{\partial A_{\theta}}{\partial\varphi},\,
+\dfrac{1}{r\sin\theta}\dfrac{\partial A_{r}}{\partial\varphi}-\dfrac{1}{r}\dfrac{\partial(rA_{\varphi})}{\partial r},\, \dfrac{1}{r}\dfrac{\partial(rA_{\theta})}{\partial r}-\dfrac{1}{r}\dfrac{\partial A_{r}}{d\theta}\right)$\\[4mm]
+	\bottomrule
+	\end{tabular}	
+\caption{Expressions du rotationnel dans différents systèmes de coordonnées}
+\labtab{expressions_du_rotationnel}
+\end{table*}
+\subsection{Propriétés}
+L'opérateur rotationnel étant linéaire, on a 
+\[
+	\overrightarrow{\text{rot}}\left(\alpha \overrightarrow{A}+\beta \overrightarrow{B}\right) =
+	\alpha\,\overrightarrow{\text{rot}}\overrightarrow{A}+\beta\,\overrightarrow{\text{rot}}\overrightarrow{B}		
+	\quad\text{avec}\quad	(\alpha,\beta)\in\mathbb{R}^2
+\]
+Le rotationnel d'un gradient est nul.
+\[
+\overrightarrow{\text{rot}}\,\overrightarrow{\text{grad}}f = 
+\overrightarrow{\nabla}\wedge(\overrightarrow{\nabla f})=\overrightarrow{0}
+\]
+La divergence d'un rotationnel est nulle.
+\[
+\text{div}\left(\overrightarrow{\text{rot}}\overrightarrow{A}\right)=
+\overrightarrow{\nabla}\cdot\left(\overrightarrow{\nabla}\wedge \overrightarrow{A}\right)=0		
+\]
+Le rotationnel d'un produit vaut
+\[
+\overrightarrow{\text{rot}}\,f\overrightarrow{A}=\overrightarrow{\nabla}\wedge(f\overrightarrow{A})=
+\overrightarrow{\nabla}f\wedge\overrightarrow{A}+f\overrightarrow{\nabla}\wedge\overrightarrow{A}=
+\overrightarrow{\text{grad}}f\wedge\overrightarrow{A}+f.\overrightarrow{\text{rot}}\,\overrightarrow{A}
+\]
+Relation avec la circulation :
+\begin{kaobox}[frametitle=Théorème de Stokes]
+La circulation d'un champ vectoriel le long d'un contour $\mathcal{C}$ \textbf{fermé} et \textbf{orienté} est égal au flux du rotationnel de ce champ à travers une surface $\mathcal{S}$ délimité par $\mathcal{C}$.  
+\[
+	\oint_{\textrm{M}\in \mathcal{C}}\overrightarrow{A}(\textrm{M})\cdot\overrightarrow{\textrm{d}\ell}=
+	\iint_{\textrm{M}\in \mathcal{S}}\overrightarrow{\text{rot}}\overrightarrow{A}(\textrm{M})\cdot
+	\overrightarrow{\text{d}S}
+\]
+avec  $\overrightarrow{\text{d}S}$ orienté à partir du sens de parcours de $\mathcal{C}$ et de la règle du tire-bouchon.
+\end{kaobox} 
+
+\textbf{Sens physique --} En mécanique des fluides, le rotationnel du champ de vitesse d'un fluide en écoulement est lié à la vitesse de rotation  $\Omega$ des particules de fluide au cours de leur mouvement.
+\[
+\overrightarrow{\Omega}=\frac{1}{2}\overrightarrow{\textrm{rot}}\overrightarrow{v}
+\]	 
+
+
+\section{L'opérateur laplacien}\label{sec:operateur_laplacien}
+\subsection{Le laplacien scalaire}
+L'opérateur laplacien scalaire est un opérateur différentiel d'ordre deux qui transforme un champ scalaire en
+un autre champ scalaire. Le laplacien scalaire s'obtient en prenant la divergence du gradient et se note 
+$\triangle f(\text{M},t)$.
+% --- equation --- (fold)
+\begin{equation}
+\fcolorbox{filet}{fond}{\hspace{0.5em}
+\(\displaystyle 
+	\triangle f(\text{M},t)=\text{div}(\overrightarrow{\text{grad}}f) =\nabla^{2}f=\dfrac{\partial^2 f}{\partial x^2}+\dfrac{\partial^2 f}{\partial y^2}+\dfrac{\partial^2 f}{\partial z^2}
+\)\hspace{0.5em}}
+\hspace{0.5em}\heartsuit
+\end{equation}
+%--- equation --- (end)
+
+
+La \reftab{expressions_du_laplacien_dans_differents_systemes_de_coordonnees} donne les expressions du laplacien scalaire dans différents systèmes de coordonnées.
+\begin{table}
+\centering
+\footnotesize
+\begin{tabular}{c|l}
+\toprule
+\textbf{Système}		&	 \textbf{Expression de} $\triangle f$ \\[4mm]
+cartésien & $\dfrac{\partial^{2}f}{\partial x^{2}}+\dfrac{\partial^{2}f}{\partial y^{2}}+\dfrac{\partial^{2}f}{\partial z^{2}}$\\[4mm]
+cylindriques & $\dfrac{1}{r}\dfrac{\partial}{\partial r}\left(r\dfrac{\partial f}{\partial r}\right) + \dfrac{1}{r^2}\dfrac{\partial^{2}f}{\partial\theta^{2}}+\dfrac{\partial^{2}f}{\partial z^{2}}$\\[4mm]
+sphériques & $\dfrac{1}{r^{2}}\dfrac{\partial}{\partial r}\left(r^{2}\dfrac{\partial f}{\partial r}\right) + \dfrac{1}{r^{2}\sin\theta}\dfrac{\partial}{\partial\theta}\left(\sin\theta\dfrac{\partial f}{\partial\theta}\right) + \dfrac{1}{r^{2}\sin^{2}\theta}\dfrac{\partial^{2}f}{\partial\varphi^{2}}$\\[4mm]
+\bottomrule
+\end{tabular}
+\caption{Expressions du laplacien dans différents systèmes de coordonnées.}
+\labtab{expressions_du_laplacien_dans_differents_systemes_de_coordonnees}
+\end{table}
+\subsection{Le laplacien vectoriel}
+Le laplacien s'applique également à un champ vectoriel. Dans ce cas il renvoie un autre champ vectoriel et se note 
+\[
+	\triangle \overrightarrow{A}	
+\]
+Par définition, le laplacien vectoriel s'obtient à l'aide de l'identité 
+\[
+\overrightarrow{\text{rot}}\,\overrightarrow{\text{rot}}\overrightarrow{A} = 
+\overrightarrow{\nabla}\wedge\left(\overrightarrow{\nabla}\wedge\overrightarrow{A}\right) = 
+\overrightarrow{\nabla}\left(\overrightarrow{\nabla}\cdot\overrightarrow{A}\right) - 
+\nabla^{2}\overrightarrow{A} = \overrightarrow{\text{grad}}(\text{div}\overrightarrow{A})-\triangle\overrightarrow{A}	
+\]
+En coordonnées cartésiennes, les vecteur unitaires étant fixes, le laplacien vectoriel d'un champ  $\overrightarrow{A}$ est tout simplement, un vecteur dont les composantes sont les laplaciens scalaires des composantes de $\overrightarrow{A}$ :
+	\[
+	\triangle\overrightarrow{A}(\text{M},t) = \left(\triangle A_{x}\right)\overrightarrow{u_{x}} + 	
+	\left(\triangle A_{y}\right)\overrightarrow{u_{y}} + \left(\triangle A_{z}\right)\overrightarrow{u_{z}}
+	\]
+
+\section{Accélération d'une particule de fluide}
+On a vu \sidecite{Roussel:2010} que l'accélération d'une particule de fluide située en M à l'instant $t$ pouvait s'obtenir à l'aide du champ de vitesse $\overrightarrow{v}(\text{M},t)$ :
+\[
+	\overrightarrow{a}(\text{M},t)=\dfrac{\partial \overrightarrow{v}}{\partial t} + \left(\overrightarrow{v}\cdot\overrightarrow{\nabla}\right)\overrightarrow{v}	
+\]
+où le dernier terme désigne la partie \textbf{convective} de l'accélération. Explicitons la composante suivant Ox de ce terme en utilisant l'égalité
+$\overrightarrow{A}\wedge(\overrightarrow{B}\wedge\overrightarrow{C})=(\overrightarrow{A}.\overrightarrow{C})\overrightarrow{B}-(\overrightarrow{A}.\overrightarrow{B})\overrightarrow{C}$
+avec $\overrightarrow{A}=\overrightarrow{v}$, $\overrightarrow{B}=\overrightarrow{\nabla}v_{x}$
+et $\overrightarrow{C}=\overrightarrow{u}_{x}$ :
+\begin{multline*}
+	\left(\overrightarrow{v}\cdot\overrightarrow{\nabla}v_{x}\right)\overrightarrow{u}_{x} = \left(\overrightarrow{v}\cdot\overrightarrow{u}_{x}\right)\overrightarrow{\nabla}v_{x} - \overrightarrow{v}\wedge\left(\overrightarrow{\nabla}v_{x}\wedge\overrightarrow{u}_{x}\right)\\
+	=v_{x}\overrightarrow{\nabla}v_{x}-\overrightarrow{v}\wedge\left(\overrightarrow{\nabla}v_{x}\wedge\overrightarrow{u}_{x}\right) = \frac{1}{2}\overrightarrow{\nabla}v_{x}^{2} - \overrightarrow{v}\wedge\left(\overrightarrow{\nabla}v_{x}\wedge\overrightarrow{u_{x}}\right)
+\end{multline*}
+Ainsi en procédant de la même façon pour les deux autres composantes, on obtient
+	\[
+	\left(\overrightarrow{v}\cdot\overrightarrow{\nabla}\right)\overrightarrow{v} =
+	\frac{1}{2}\overrightarrow{\nabla}\left(v_{x}^{2}+v_{y}^{2}+v_{z}^{2}\right) - 
+	\overrightarrow{v}\wedge\left(\overrightarrow{\nabla}v_{x}\wedge\overrightarrow{u}_{x}+\overrightarrow{\nabla}v_{y}\wedge\overrightarrow{u}_{y}+\overrightarrow{\nabla}v_{z}\wedge\overrightarrow{u}_{z}\right) 
+	\]
+On reconnait $v^2$ dans le gradient et l'on voit apparaître $\overrightarrow{\text{rot}}\overrightarrow{v}$ dans le dernier terme. On aboutit alors à une nouvelle expression de l'accélération
+% --- equation --- (fold)
+\begin{equation}
+\fcolorbox{filet}{fond}{\hspace{0.5em}
+\(\displaystyle 
+\overrightarrow{a}(\text{M},t) = \dfrac{\partial \overrightarrow{v}}{\partial t} +	\overrightarrow{\text{grad}}\frac{v^{2}}{2}+\left(\overrightarrow{\text{rot}}\overrightarrow{v}\right)\wedge\overrightarrow{v}
+\)\hspace{0.5em}}
+\hspace{0.5em}\heartsuit
+\end{equation}
+%--- equation --- (end)
+

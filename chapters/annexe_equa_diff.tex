@@ -1,0 +1,245 @@
+\setchapterstyle{kao}
+\setchapterpreamble[u]{\margintoc} 
+\chapter{RÉSOUDRE UNE ÉQUATION DIFFÉRENTIELLE}
+\labpage{resoudre_une_equa-diff}
+
+En physique, et particulièrement en mécanique, la modélisation d'un phénomène aboutit souvent à une ou des équations différentielles.  Nous abordons ici différentes approches analytiques utilisées dans le cadre de leur résolution.
+
+\begin{center}
+\textbf{Version en ligne}
+
+	\url{https://femto-physique.fr/omp/equations-differentielles.php}
+\end{center}
+
+%%% section1  %%%%
+\section[EDO]{Équation différentielle ordinaire}
+
+\subsection{Généralités}
+Une \'equation diff\'erentielle est une relation entre une fonction et ses d\'eriv\'ees successives. L’ordre  d’une \'equation diff\'erentielle correspond au degr\'e maximal de d\'erivation de la fonction inconnue : Ainsi, une \'equation diff\'erentielle d’ordre 1 est une relation où  interviennent une fonction et sa d\'eriv\'ee première. R\'esoudre une \'equation diff\'erentielle, c’est trouver toutes les fonctions qui v\'erifient la relation sur un intervalle donn\'e.
+
+D'un point de vue plus formel, appelons $y$ une grandeur physique temporelle définie par 
+\[
+y:
+\left\{
+\begin{array}{ccc}
+[0,T]	& \to	&	\mathbb{R} \\
+t	& \mapsto & y(t)
+\end{array}
+\right.
+\]
+
+et notons $\dot{y}$, $\ddot{y}$ et $y^{(p)}$, les dérivées temporelles première, seconde et d'ordre $p$. Dans ce cas, toute relation de la forme
+\begin{equation}
+	F(t,y(t),\dot{y}(t),\dots,y^{(p)}(t))=0\label{eq:C4equadiff}
+\end{equation}
+est une \textbf{équation différentielle ordinaire} d'ordre $p$. En général la fonction recherchée $y$ obéit à des contraintes sous la forme de $p$ conditions initiales : 
+\[
+y(0) = y_{0}, \quad \dot{y}(0)  =  y_{1}, \quad \ddot{y}(0)=y_{2},\dots, y^{p-1}(0) = y_{p-1}
+\]
+La donnée de l'équation différentielle du type \eqref{eq:C4equadiff} et des $p$ conditions initiales s'appelle un \emph{problème de Cauchy}. 
+
+La plupart du temps, un système d'équations différentielles scalaires peut se ramener à une équation différentielle \textbf{vectorielle d'ordre 1} de la forme 
+\begin{equation}
+\left\{
+\begin{array}{cccc}
+   \dot{ \mathbf{y}}  & = & f(t,\mathbf{y}(t)), & 0\leq t \leq T  \\
+  \mathbf{y}(0) & = & \mathbf{y}_{0} & \\
+\end{array}
+\right.
+\label{eq:ode}
+\end{equation}
+
+où $\mathbf{y}$ est un vecteur de dimension $d$ et $f$ une fonction régulière. Cette représentation se prête bien à la résolution numérique\sidecite{Roussel:2011}.
+
+On peut montrer que si la fonction $f$ est suffisamment régulière\sidenote{Plus précisément, la fonction $f$ doit obéir aux conditions de Cauchy-Lipschitz : pour tout $t  \in [0,T]$, $\mathbf{x}$ et $\mathbf{y}$ au voisinage de $y_{0}$, s'il existe un réel $K$ tel que $\|f(t,\mathbf{x})-f(t,\mathbf{y})\|<K\|\mathbf{x}-\mathbf{y}\|$ alors il existe une unique solution.}, le problème de Cauchy admet une \emph{unique solution}. On admettra par la suite ces conditions de régularité réunies. Il nous reste alors à déterminer la solution de fa\c con analytique. 
+
+\subsection{Exemple}
+Pour illustrer notre propos, supposons que l'on s'intéresse à la chute d'un corps dans un fluide. 
+
+On lance un point matériel M  avec une vitesse initiale $\overrightarrow{v_{0}}$ dans un fluide visqueux exer\c cant une force de frottement quadratique en vitesse $\overrightarrow{F_\text{t}}=-\beta v \overrightarrow{v}$. Si l'on tient compte uniquement du poids et de la force de frottement, l'équation du mouvement issue de la seconde loi de Newton donne :
+
+\begin{marginfigure}
+	\centering
+	\begin{tikzpicture}[scale=.7]
+	\def \xLabel {$x$}; % legende sur x
+	\def \yLabel {$z$}; % legende sur y
+	\def \ymin{-0.5};
+	\def \ymax{4.5};
+	\def\vitesse{10};%vitesse initiale
+	\def\alpha{1 r};%angle initial
+	\def\pesanteur{10};%champ de pesanteur
+	\def\instant{0.25};%instant où M est représenté
+	\coordinate (M) at ({\vitesse*\instant*cos(\alpha)},{\vitesse*\instant*sin(\alpha)-0.5*\pesanteur*\instant*\instant});
+	\draw[color=gray, variable=\x, samples at={0,0.01,...,\instant}] plot ({\vitesse*\x*cos(\alpha)},{\vitesse*\x*sin(\alpha)-0.5*\pesanteur*\x*\x}) ;
+	\fill [pattern=north east lines] (-0.5,0)--++(7,0)--++(0,-0.3)--++(-7,0)-- cycle;
+	\draw[thick](-0.5,0)--++(7,0);
+	\draw[vecteur] (-0.5,1.5) node[right]{$\overrightarrow{g}$} --++(0,-0.5);
+	\draw[vecteur] (M)--++({0.12*\vitesse*cos(\alpha)},{0.12*(\vitesse*sin(\alpha)-\pesanteur*\instant)}) node[midway,above=7pt]{$\overrightarrow{v}$};
+	\draw[vecteur] (0,0)--++({0.12*\vitesse*cos(\alpha)},{0.12*(\vitesse*sin(\alpha))}) node[midway,above=7pt]{$\overrightarrow{v_{0}}$};
+	\draw (0.7,0) to[bend right] ({0.7*cos(\alpha)},{0.7*sin(\alpha)});
+	\draw (45:0.8) node[right]{$\theta$};
+	\draw[->] (5.5,0.5) --++(1,0) node[above] {\xLabel};
+	\draw[->] (5.5,0.5) --++(0,1) node[below right] {\yLabel};
+	\draw[thick,color=monBleu,smooth]plot file {./simu/chutequadratique-rk4.txt};
+	\draw[bloc] (M) circle(0.2) node[color=black,right=0.3cm]{M} ; 
+	\end{tikzpicture}
+\end{marginfigure}
+
+\[
+m\frac{\mathrm{d}^{2}\overrightarrow{\text{OM}}}{\mathrm{d} t^{2}}=m \overrightarrow{g}-\beta v \overrightarrow{v}
+\] qui, après projection dans le plan $(x,z)$ se décompose en deux équations couplées : 
+\[
+\left\{
+\begin{array}{ccc}
+\ddot z & = & -g-\frac{\beta}{m} \dot z \sqrt{{\dot x}^{2}+{\dot z}^{2}} \\[4mm]
+\ddot x & = & -\frac{\beta}{m} \dot x   \sqrt{{\dot x}^{2}+{\dot z}^{2}}
+\end{array}
+\right.
+\]
+Il s'agit d'un système de deux \emph{équations différentielles d'ordre deux, non linéaires couplées}.
+
+ Dans l'exemple précédent, on peut transformer le système d'équations en une équation du type (\ref{eq:ode}) à condition de poser 
+\[
+\mathbf{y}=
+\begin{bmatrix}x \\ z \\ \dot x \\ \dot z \end{bmatrix}
+\quad \text{et} \quad
+f(t,\mathbf{y})=\begin{bmatrix}
+\dot x \\
+\dot z \\
+-\frac{\beta}{m} \dot x  \sqrt{{\dot x}^{2}+{\dot z}^{2}} \\
+-g-\frac{\beta}{m} \dot z  \sqrt{{\dot x}^{2}+{\dot z}^{2}}
+\end{bmatrix}
+\quad \text{avec} \quad
+\mathbf{y}_{0}=
+\begin{bmatrix}0 \\ 0 \\ v_{0}\cos\theta \\ v_{0}\sin\theta \end{bmatrix}
+\]
+
+Le nombre d’\'equations diff\'erentielles que l’on sait r\'esoudre analytiquement est tr\`es r\'eduit. Nous allons étudier les plus utiles en physique.
+
+
+% section II
+
+
+\section[EDO linéaire]{Équation différentielle linéaire}\label{subsec:EL}
+
+\subsection{Définitions}
+
+Supposons qu'une grandeur physique $y$  obéisse à une équation différentielle de la forme  
+\begin{equation}
+	\mathcal{L}(y)=f(t)
+	\label{eq:EquaDiffLineaire}
+\end{equation}
+où  $\mathcal{L}$ désigne un \emph{opérateur différentiel}, c'est-à-dire un opérateur construit à partir des dérivées et de l'identité. Si l'opérateur vérifie la propriété 
+\[
+\mathcal{L}(\alpha y_{1}+\beta y_{2})=\alpha \mathcal{L}(y_{1})+\beta \mathcal{L}(y_{2})\quad \text{avec}\quad (\alpha,\beta)\in\mathbb{R}^{2}
+\]
+On dit que l'équation différentielle est linéaire.
+
+L'équation différentielle (\ref{eq:EquaDiffLineaire}) se compose de deux termes :
+\begin{enumerate}
+	\item  le terme de gauche est une combinaison de fonctions de $y$ et de ses dérivées. Ce terme est en général étroitement lié aux propriétés intrinsèques du système physique étudié. 
+	\item le second membre $f(t)$ de l'équation est en général lié à l'action de l'extérieur sur le système physique. On parle du terme d'excitation. 
+\end{enumerate}
+
+\subsection{Propriétés générales}
+Intéressons nous d'abord à l'équation, dite \emph{équation homogène}, $\mathcal{L}(y)=0$. Il est facile de voir que si l'on connaît deux solutions $y_{1}$ et $y_{2}$ de cette équation, alors $\alpha y_{1}+ \beta y_{2}$  est aussi solution quelles que soient les réels $\alpha$  et $\beta$.
+
+Appelons $y_\text{h}$ une solution de l'équation homogène $\mathcal{L}(y)=0$ et  $y_\text{p}$ une solution particulière de l'équation \eqref{eq:EquaDiffLineaire}. Dans ce cas, la linéarité implique 
+$$\mathcal{L}(\alpha y_\text{h}+y_\text{p})=\alpha \mathcal{L}(y_\text{h})+\mathcal{L}(y_\text{p})=0+f(t)$$
+Autrement dit, $\alpha y_\text{h}+y_\text{p}$  est solution de l'équation $\mathcal{L}(y)=f(t)$. On en déduit la méthode de résolution suivante :
+
+\begin{kaobox}[frametitle=Méthodologie]
+Pour résoudre une équation différentielle, avec conditions initiales,  de la forme $\mathcal{L}(y)=f(t)$ où $\mathcal{L}$ est un \emph{opérateur différentiel linéaire} d'ordre $p$, on procédera en trois étapes :
+\begin{enumerate}
+	\item On déterminera toutes les solutions de l'\textbf{équation homogène}  $\mathcal{L}(y)=0$. Ces solutions, notées $y_\text{h}$, feront intervenir $p$ constantes d'intégration.
+	\item On recherchera une \textbf{solution particulière}, notée $y_\text{p}$, de l'équation $\mathcal{L}(y)=f(t)$.
+	\item La solution s'écrivant  $y=y_\text{h}+y_\text{p}$, on déterminera les constantes d'intégration à l'aide des conditions initiales sur $y$  et ses $p-1$ dérivées.  
+\end{enumerate}
+\end{kaobox}
+
+Enfin, tout système physique régi par une équation différentielle linéaire obéit au \emph{principe de superposition}. En effet, supposons que l'on connaisse la solution $y_{1}$ de l'équation $\mathcal{L}(y)=f_{1}(t)$  ainsi que la solution $y_{2}$ de l'équation $\mathcal{L}(y)=f_{2}(t)$. Dans ce cas, $y_{1}+y_{2}$ sera solution de l'équation $\mathcal{L}(y)=f_{1}(t)+f_{2}(t)$. Cela signifie que si l'on excite un système linéaire de manière compliquée, mais que l'on peut décomposer cette excitation en une somme de termes simples, alors il suffit de connaître la réponse du système vis à vis de ces termes pour déterminer la réponse complète par une simple sommation. Cela traduit finalement le fait que des causes produites simultanément, engendrent un effet qui est le résultat de la somme des effets produits par chacune des causes appliquées seules. C'est cette propriété importante qui permet par exemple de connaître la réponse d'un oscillateur linéaire soumis à une force quelconque, à partir de la réponse de cet oscillateur vis-à-vis d'une force sinusoïdale, car on sait décomposer une force quelconque en une somme de termes sinusoïdaux (analyse de Fourier).
+ 
+\subsection{Équation différentielle linéaire à coefficients constants}[EDO linéaire à coefs constants]
+Dans de nombreux cas, les problèmes physiques simples mènent à une équation différentielle linéaire à coefficients constants qui s'écrit de la façon suivante :
+\begin{equation}
+	a_{p}y^{(p)}+...+a_{2}\ddot{y}+a_{1}\dot{y}+a_{0}y=f(t)\label{eq:ELCC}
+\end{equation}
+où les constantes $a_{k}$ ainsi que la fonction $f(t)$ sont connues. Il est facile de voir que l'opérateur différentiel est bien linéaire. Cette équation est dite linéaire à coefficients constants avec second membre. Pour résoudre cette équation il suffit donc de trouver les solutions de l'équation homogène ainsi qu'une solution particulière de l'équation~(\ref{eq:ELCC}). On admettra les résultats suivants.
+
+\textbf{Solution particulière --} Il existe une méthode générale pour trouver la solution particulière mais dans la plupart des cas, il suffit de chercher une solution ayant la \emph{même forme que le second membre $f(t)$}. On retiendra notamment que :
+	\begin{itemize}
+		\item si $f(t)=b$, avec $b$ une constante, on cherchera une solution particulière de la forme $y_\text{p}=\mathrm{C^{te}}$. En rempla\c cant $y$ par cette constante dans l'équation différentielle, on trouve immédiatement $y_\text{p}=b/a_{0}$. 
+		\item si  $f(t)$ est un polynôme de degré $q$, on cherchera une solution particulière sous la forme d'un polynôme de degré $q$ :  $y_\text{p}(t)=\beta_{0}+\beta_{1}t+...+\beta_{q}t^{q}$. On obtient les coefficients $\beta_{k}$ par identification en rempla\c cant dans l'équation différentielle~(\ref{eq:ELCC}) $y(t)$ par $y_\text{p}(t)$.
+		\item si $f(t)$ est sinusoïdal de pulsation $\omega$, on cherchera une solution particulière sous la forme $y_\text{p}(t)=A \cos (\omega t) + B \sin(\omega t)$. On obtiendra $A$ et $B$ également par identification.
+	\end{itemize}
+
+\begin{kaoremark}
+Lors de la recherche de la solution particulière, il arrive que les méthodes citées plus haut échouent. Citons deux exemples.
+	\begin{enumerate}
+		\item Dans le cas où le second membre est un polynôme de degré $q$, il peut arriver qu'il n' y ait pas de solution particulière sous la forme d'un polynôme de degré $q$. Dans ce cas, on envisagera un polynôme de degré supérieur. 
+		\item Dans le cas où le second membre est sinusoïdal de pulsation $\omega$, la méthode proposée plus haut échouera si l'équation caractéristique admet comme racine $i \omega$ ou $-i \omega$. Dans ce cas il faut chercher une solution particulière de la forme $t[A \cos (\omega t) + B \sin(\omega t)]$. 
+	\end{enumerate}
+\end{kaoremark} 
+
+\textbf{Solutions de l'équation homogène --} La solution de l'équation sans second membre est de la forme $Ae^{rt}$ où $r$ est un nombre réel ou complexe solution de \emph{l'équation caractéristique} 
+\[
+a_{p}r^{p}+...+a_{2}r^{2}+a_{1}r+a_{0}=0
+\]
+Si les $p$ racines sont distinctes, la solution est 
+\[
+y_\text{h}(t)=\sum_{k=1}^{k=p}A_{k}e^{r_{k}t}
+\]
+où les constantes $A_{k}$ désignent les \emph{constantes d'intégration}.
+
+La solution générale s'écrit donc 
+\[
+y(t)=\sum_{k=1}^{k=p}A_{k}e^{r_{k}t}+y_\text{p}(t)
+\]
+
+\begin{kaoremark}
+Lors de la résolution de l'équation caractéristique, il peut arriver que l'on obtienne des racines multiples. Dans ce cas, on admettra qu'il faut remplacer la solution $A_{k}e^{r_{k}t}$ par $P(t)e^{r_{k}t}$ où $P(t)$ est un polynôme de degré 1 si $r_{k}$ est racine double, 2 si elle est triple, etc. On vérifiera que le nombre de constantes d'intégration est égal à $p$.\\
+L'équation caractéristique peut admettre des racines complexes $r_{k}=a_{k}+ib_{k}$, ce qui produit des solutions du type $Ce^{a_{k}t}e^{i b_{k}t}$ avec $C=\alpha+i\beta$ une constante d'intégration complexe. Cependant, cherchant des solutions réelles, la partie imaginaire sera nécessairement nulle et il ne faut alors conserver que la partie réelle, à savoir $e^{a_{k}t}\left[(\alpha\cos(b_{k}t)-\beta\sin(b_k t)\right]$.
+\end{kaoremark} 
+ 
+ 
+\section{Équation à variables séparables}
+
+\subsection{Définition}
+
+Une équation  différentielle \emph{à variables séparables} est du type 
+\begin{equation}
+	\dot{y}g(y)=f(t)\label{eq:EquaDiffSeparabe}
+\end{equation}
+Si $G$ et $F$ sont des primitives de $g$ et $f$, l'équation différentielle peut alors s'écrire 
+\begin{equation}
+	\frac{\mathrm{d} G(y(t))}{\mathrm{d} t}=\frac{\mathrm{d} F(t)}{\mathrm{d} t}
+	\qquad\Longrightarrow\qquad G(y)=F(t)+\mathrm{C^{te}}\label{eq:EquaDiffSeparable2}
+\end{equation}
+où la constante  est imposée par la condition initiale : $\mathrm{C^{te}}=G(y_{0})-F(0)$.
+
+\subsection{Exemple : Chute libre avec frottement quadratique}[Exemple]
+Lâchons un corps de masse $m$ dans un fluide et supposons que le frottement fluide est bien modélisé par une loi quadratique  $F_\text{t}=\beta v^{2}$. Le mouvement est rectiligne de vitesse $v(t)$ qu'il s'agit de déterminer. Si l'on note $g$ le champ de pesanteur, la relation fondamentale, appliquée dans le référentiel terrestre considéré galiléen, donne
+\[
+m\dot{v}+\beta v^{2}=mg \quad \text{avec}\quad v(0)  =  0
+\]
+L'équation est non linéaire du fait de la présence du terme quadratique. En revanche, il est possible de séparer les variables :
+\[
+\dot{v}\frac{1}{1-\frac{\beta}{mg}v^{2}}=g
+\]
+Or 
+	\[	
+	\int\frac{\mathrm{d}x}{1-(x/a)^{2}}=\frac{a}{2}\,\ln{\left|\frac{a+x}{a-x}\right|}
+	\]
+Ainsi, la solution \eqref{eq:EquaDiffSeparable2} s'écrit
+	\[
+	\frac{1}{2}\sqrt{\frac{mg}{\beta}}\ln\frac{\sqrt{mg/\beta}+v}{\sqrt{mg/\beta}-v}=gt+\mathrm{C^{te}}
+	\]
+La condition initiale impose la nullité de la constante ce qui donne finalement
+\[
+v(t)=\sqrt{\frac{mg}{\beta}}\frac{\mathrm{e}^{t/\tau}-\mathrm{e}^{-t/\tau}}{\mathrm{e}^{t/\tau}+\mathrm{e}^{-t/\tau}}
+\qquad\text{avec}\qquad
+\tau=\sqrt{\frac{m}{g\beta}}
+\]
+La vitesse croit (au début comme $gt$) puis atteint une limite asymptotique $v_{\infty}=\sqrt{mg/\beta}$.
+
+
