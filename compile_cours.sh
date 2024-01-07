@@ -1,8 +1,11 @@
 #!/bin/bash
-# A script to compile the PhD Thesis - Krishna Kumar 
+# A script to compile latex book - Jimmy Roussel 
+# Inspired by script Krishna Kumar : https://github.com/kks32/phd-thesis
 # Distributed under GPLv2.0 License
 
-compile="compile";
+compile1="pdflatex";
+compile2="lualatex";
+compile3="xelatex";
 clean="clean";
 
 if test -z "$2"
@@ -66,8 +69,8 @@ if [ $1 = $clean ]; then
 	rm -rf *#* 
 	echo "Cleaning complete!"
 	exit
-elif [ $1 = $compile ]; then
-	echo "Compiling your PhD Thesis...please wait...!"
+elif [ $1 = $compile1 ]; then
+	echo "Compiling using PDFLatex...please wait...!"
 	pdflatex -interaction=nonstopmode $filename.tex
 	bibtex $filename.aux 	
 	makeindex $filename.aux
@@ -76,6 +79,13 @@ elif [ $1 = $compile ]; then
 	pdflatex -interaction=nonstopmode $filename.tex
 	makeindex $filename.nlo -s nomencl.ist -o $filename.nls
 	pdflatex -interaction=nonstopmode $filename.tex
+	echo "Success!"
+	exit
+elif [ $1 = $compile3 ]; then
+	echo "Compiling using XeLaTeX...please wait...!"
+    latexmk -xelatex $filename.tex
+    makeindex $filename.nlo -s nomencl.ist -o $filename.nls
+    latexmk -xelatex -g $filename.tex
 	echo "Success!"
 	exit
 fi
