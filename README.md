@@ -9,7 +9,9 @@ Physics lesson template of [femto-physique.fr](https://femto-physique.fr)
 ---
 ## Features
 
-* Supports LaTeX and XeLaTeX 
+* Supports LaTeX, LuaLaTeX and XeLaTeX 
+
+* uses Kaobook class 
 
 * Wide margin to house captions, small figures or tables, and textual notes.
 
@@ -61,7 +63,11 @@ This template supports `LuaLaTeX` compilation chain. To generate  PDF run
 
 Usage: `sh ./compile_cours.sh [OPTIONS] [filename]`
 
-[option]  compile: Compiles the filename.tex
+[option]  pdflatex: Compiles the filename.tex using pdflatex
+
+[option]  lualatex: Compiles the filename.tex using lualatex
+
+[option]  xelatex: Compiles the filename.tex with xelatex
 
 [option]  clean: removes temporary files - no filename required
 
