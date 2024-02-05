@@ -15,8 +15,10 @@ if [ $1 = $clean ]; then
 	rm -f *~
 	rm -rf *.aux
 	rm -rf *.bbl
+	rm -rf *.bcf
 	rm -rf *.blg
 	rm -rf *.d
+	rm -rf *.fdb*
 	rm -rf *.fls
 	rm -rf *.ilg
 	rm -rf *.ind
@@ -25,10 +27,12 @@ if [ $1 = $clean ]; then
 	rm -rf *.lof*
 	rm -rf *.log
 	rm -rf *.idx
-	rm -rf *.out*
+	rm -rf *.idx
+	rm -rf *.mw
 	rm -rf *.nlo
 	rm -rf *.nls
-	rm -rf $filename.pdf
+	rm -rf *.run*
+	rm -rf *.xdv
 	rm -rf $filename.ps
 	rm -rf $filename.dvi
 	rm -rf *#* 
@@ -36,8 +40,10 @@ if [ $1 = $clean ]; then
 	exit
 else
 	echo "Shell script for compiling the PhD Thesis"
-	echo "Usage: sh ./compile-thesis.sh [OPTIONS] [filename]"
-	echo "[option]  compile: Compiles the PhD Thesis"
+	echo "Usage: sh ./compile-cours.sh [OPTIONS] [filename]"
+	echo "[option]  pdflatex : Compiles with pdflatex engine"
+	echo "[option]  lualatex : Compiles with lualatex engine"
+	echo "[option]  xelatex : Compiles with xelatex engine"
 	echo "[option]  clean: removes temporary files no filename required"
 	exit
 fi
@@ -50,8 +56,10 @@ if [ $1 = $clean ]; then
 	rm -f *~
 	rm -rf *.aux
 	rm -rf *.bbl
+	rm -rf *.bcf
 	rm -rf *.blg
 	rm -rf *.d
+	rm -rf *.fdb*
 	rm -rf *.fls
 	rm -rf *.ilg
 	rm -rf *.ind
@@ -60,10 +68,12 @@ if [ $1 = $clean ]; then
 	rm -rf *.lof*
 	rm -rf *.log
 	rm -rf *.idx
-	rm -rf *.out*
+	rm -rf *.idx
+	rm -rf *.mw
 	rm -rf *.nlo
 	rm -rf *.nls
-	rm -rf $filename.pdf
+	rm -rf *.run*
+	rm -rf *.xdv
 	rm -rf $filename.ps
 	rm -rf $filename.dvi
 	rm -rf *#* 
