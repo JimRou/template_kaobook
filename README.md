@@ -27,7 +27,7 @@ Physics lesson template of [femto-physique.fr](https://femto-physique.fr)
 
 A better description can be found at [LaTeX 
 Templates](http://www.latextemplates.com/template/kaobook). If you think 
-that a PDF is worth a thousand words, have a look at [this](https://github.com/fmarotta/kaobook/example_and_documentation.pdf).
+that a PDF is worth a thousand words, have a look at [this](https://github.com/fmarotta/kaobook/blob/master/example_and_documentation.pdf).
 
 
 
